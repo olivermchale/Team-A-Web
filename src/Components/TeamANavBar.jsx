@@ -2,17 +2,28 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { LinkContainer } from "react-router-bootstrap";
 
 class TeamANavBar extends React.Component {
     render() {
         return (
             <>
                 <Navbar bg="dark" variant="dark">
-                    <Navbar.Brand href="#home">Team A</Navbar.Brand>
+                <LinkContainer to="/">
+                <Navbar.Brand href="#home">Team A</Navbar.Brand>
+                </LinkContainer>
+                    
                     <Nav className="mr-auto">
-                    <Nav.Link href="#home">Home</Nav.Link>
-                    <Nav.Link href="#features">Features</Nav.Link>
-                    <Nav.Link href="#pricing">Pricing</Nav.Link>
+                        <LinkContainer to="/">
+                            <Nav.Link>Home</Nav.Link>
+                        </LinkContainer>
+                        <LinkContainer to="/users">
+                            <Nav.Link>Users</Nav.Link>
+                        </LinkContainer>
+                        <LinkContainer to="/etc">
+                            <Nav.Link >Etc</Nav.Link>
+                        </LinkContainer>
                     </Nav>
                 </Navbar>
             </>
@@ -24,7 +35,7 @@ class TeamANavBar extends React.Component {
     }
     
     getData() {
-        axios.get('https://localhost:44358/api/Brands/GetBrands').then(function (resp)  {
+        axios.get('https://localhost:44375/api/accounts/getcustomers').then(function (resp)  {
             console.log(resp);
         })
     }
