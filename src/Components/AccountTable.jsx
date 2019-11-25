@@ -2,10 +2,11 @@ import React from 'react';
 import axios from 'axios';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Link } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 
 function idFormatter (cell, row)  {
     return (
-        <Link to = {`accounts/${row.id}`}>
+        <Link to = {`users/${row.id}`}>
             <span>{cell}</span>
         </Link>
     )
@@ -37,7 +38,7 @@ class AccountTable extends React.Component {
     render() {
         return (
             <>
-                <div className="container" style={{ marginTop: 50 }}>
+                <Container style={{ marginTop: 50 }}>
                     <BootstrapTable 
                     striped
                     bootstrap4
@@ -45,7 +46,7 @@ class AccountTable extends React.Component {
                     keyField='id' 
                     data={ this.state.users } 
                     columns={ this.state.columns } />
-                </div>
+                </Container>
             </>
         )
     }

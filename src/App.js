@@ -4,6 +4,7 @@ import './App.css';
 import TeamANavBar from './Components/TeamANavBar';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AccountTable from './Components/AccountTable';
+import UserProfile from './Components/UserProfile';
 
 function App() {
   return (
@@ -15,6 +16,10 @@ function App() {
       exact 
       path='/users'
       component={AccountTable}/>
+    <Route
+      exact
+      path='/users/:id'
+      component={UserProfile}/>
     </Router>
 
   );

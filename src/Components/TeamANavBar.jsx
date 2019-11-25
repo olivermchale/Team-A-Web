@@ -29,16 +29,6 @@ class TeamANavBar extends React.Component {
             </>
         )
     }
-
-    componentDidMount() {
-        this.getData();
-    }
-    
-    getData() {
-        axios.get('https://localhost:44375/api/accounts/getcustomers').then(function (resp)  {
-            console.log(resp);
-        })
-    }
 }
 
 
