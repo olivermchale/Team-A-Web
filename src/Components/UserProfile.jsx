@@ -1,17 +1,41 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
+import { Container, Card, Image } from 'react-bootstrap';
 import axios from 'axios';
+import user from './user.png'
 import { useParams } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
 
 class UserProfile extends React.Component {
     state = {
+        user: {
+
+        }
     }
     render() {
         return (
             <>
-                <h1>hi</h1>
+                <Container className="mt center">
+                    <Card>
+                        <Card.Body>
+                            <Card.Title>
+                                {this.state.user.firstName + ' ' + this.state.user.lastName}
+                                <br/>
+                                <Image src={user} className="mt user-image"/>
+                            </Card.Title>
+                            {this.state.user.address}
+                            <br/>
+                            {this.state.user.postcode}
+                            <br/>
+                            {this.state.user.email}
+                            <br/>
+                            {this.state.user.phoneNumber}
+                            <br/>
+                            {this.getActivity()}
+                        </Card.Body>
+                    </Card>
+                </Container>
             </>
         )
     }
@@ -24,6 +48,11 @@ class UserProfile extends React.Component {
             });
             this.test();
         })
+    }
+
+    getActivity = () => {
+        var x = new Date(this.state.user.loggedOnAt)
+        return <p>Last logged on at {x}</p>
     }
 
     test() {
