@@ -11,7 +11,7 @@ class TeamANavBar extends React.Component {
             <>
                 <Navbar bg="dark" variant="dark">
                 <LinkContainer to="/">
-                <Navbar.Brand href="#home">Team A</Navbar.Brand>
+                <Navbar.Brand>Team A</Navbar.Brand>
                 </LinkContainer>
                     
                     <Nav className="mr-auto">
