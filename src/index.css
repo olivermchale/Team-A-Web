@@ -41,3 +41,14 @@ code {
 .ml {
   margin-left:5px;
 }
+
+.card-body > label {
+  font-weight: bold;
+}
+.teamA-form-lbl {
+  font-size: 1rem !important;
+}
+
+.btn-edit {
+  color: white !important;
+}

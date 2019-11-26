@@ -1,11 +1,12 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
-import { Container, Card, Image, Badge, Button } from 'react-bootstrap';
+import { Container, Card, Image, Badge, Button, Form, Col, Row } from 'react-bootstrap';
 import axios from 'axios';
 import user from './user.png'
 import { useParams } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
+import { Link } from 'react-router-dom';
 
 class UserProfile extends React.Component {
     state = {
@@ -23,20 +24,30 @@ class UserProfile extends React.Component {
                     <Card>
                         <Card.Body>
                             <Card.Title>
+                                <label>Name&nbsp;</label>
                                 {this.state.user.firstName + ' ' + this.state.user.lastName}
+                                <Button className="float-right" variant="warning">
+                                    <Link className="btn-edit" to={`edit/${this.state.user.id}`}>
+                                        Edit
+                                    </Link>
+                                </Button>
                             </Card.Title>
                             {this.getLastDate()}
                             <Image src={user} className="user-image"/>
                             <br/>
+                            <label>Address&nbsp;</label>
                             {this.state.user.address}
                             <br/>
+                            <label>Postcode&nbsp;</label>
                             {this.state.user.postcode}
                             <br/>
+                            <label>Email&nbsp;</label>
                             {this.state.user.email}
                             <br/>
+                            <label>Phone Number&nbsp;</label>
                             {this.state.user.phoneNumber}
                             <br/>
-                            {this.state.user.canPurchase ? <Badge variant="success mr">Can Purchase</Badge> : <Badge variant="danger">Purchase Disabled</Badge>}
+                            {this.state.user.canPurchase ? <Badge variant="success">Can Purchase</Badge> : <Badge variant="danger">Purchase Disabled</Badge>}
                             {this.state.user.isDeleteRequested? 
                                 <Badge variant="danger ml">Delete Requested</Badge> 
                             : 
