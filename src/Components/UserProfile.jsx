@@ -24,8 +24,8 @@ class UserProfile extends React.Component {
                     <Card>
                         <Card.Body>
                             <Card.Title>
-                                <label>Name&nbsp;</label>
                                 {this.state.user.firstName + ' ' + this.state.user.lastName}
+                                {/* todo: put out of row to make sure it doesnt mess up centering, add click to button+link */}
                                 <Button className="float-right" variant="warning">
                                     <Link className="btn-edit" to={`edit/${this.state.user.id}`}>
                                         Edit

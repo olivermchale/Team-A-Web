@@ -16,6 +16,10 @@ code {
   margin-top: 30px;
 }
 
+.mb {
+  margin-bottom: 10px;
+}
+
 .mt-sm {
   margin-top: 5px;
 }
@@ -28,6 +32,7 @@ code {
 .user-image {
   height: 100px;
   width: 100px;
+  margin-bottom: 10px;
 }
 
 .opaque {
@@ -51,4 +56,8 @@ code {
 
 .btn-edit {
   color: white !important;
+}
+
+.edit-lbl {
+  font-size: 1.25rem !important;
 }

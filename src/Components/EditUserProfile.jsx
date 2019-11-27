@@ -1,13 +1,13 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
-import { Container, Card, Image, Badge, Button, Form, Col, Row } from 'react-bootstrap';
+import { Container, Card, Image, Badge, Button, Form, Col, Row, ButtonToolbar } from 'react-bootstrap';
 import axios from 'axios';
 import user from './user.png'
 import { useParams } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
 
-class UserProfile extends React.Component {
+class EditUserProfile extends React.Component {
     state = {
         user: {
 
@@ -25,51 +25,65 @@ class UserProfile extends React.Component {
                     <Card.Body>
                         <Card.Title>
                         
-                            <Form.Group as={Row} controlId="formName">
+                            <Form.Group as={Row} controlId="firstName">
                                 <Form.Label  className="text-right teamA-form-lbl" column xs={3} md={4}>
-                                Name
+                                First Name
                                 </Form.Label>
                                 <Col xs={9} md={4}>
-                                <Form.Control  defaultValue="Oliver McHale" />
+                                <Form.Control onChange={this.handleFormChange} defaultValue={this.state.user.firstName} />
+                                </Col>
+                            </Form.Group>
+                            <Form.Group as={Row} controlId="lastName">
+                                <Form.Label  className="text-right teamA-form-lbl" column xs={3} md={4}>
+                                Second Name
+                                </Form.Label>
+                                <Col xs={9} md={4}>
+                                <Form.Control onChange={this.handleFormChange} defaultValue={this.state.user.lastName} />
                                 </Col>
                             </Form.Group>
                         </Card.Title>
                         {this.getLastDate()}
                         <Image src={user} className="user-image"/>
-                        <Form.Group as={Row} controlId="formAddress">
+                        <Form.Group  as={Row} controlId="address">
                             <Form.Label  className="text-right teamA-form-lbl" column xs={3} md={4}>
-                                Address
+                                Address 
                             </Form.Label>
                             <Col xs={9} md={4}>
-                                <Form.Control defaultValue="Teesside"/>
+                                <Form.Control onChange={this.handleFormChange} defaultValue={this.state.user.address}/>
                             </Col>
                         </Form.Group>
-                        <Form.Group as={Row} controlId="formPostcode">
+                        <Form.Group as={Row} controlId="postcode">
                             <Form.Label  className="text-right teamA-form-lbl" column xs={3} md={4}>
                                 Postcode
                             </Form.Label>
                             <Col xs={9} md={4}>
-                                <Form.Control defaultValue="Teesside"/>
+                                <Form.Control onChange={this.handleFormChange} defaultValue={this.state.user.postcode}/>
                             </Col>
                         </Form.Group>
-                        <Form.Group as={Row} controlId="formEmail">
+                        <Form.Group as={Row} controlId="email">
                             <Form.Label  className="text-right teamA-form-lbl" column xs={3} md={4}>
                                 Email
                             </Form.Label>
                             <Col xs={9} md={4}>
-                                <Form.Control defaultValue="Teesside"/>
+                                <Form.Control onChange={this.handleFormChange} defaultValue={this.state.user.email}/>
                             </Col>
                         </Form.Group>
-                        <Form.Group as={Row} controlId="formPhoneNum">
+                        <Form.Group as={Row} controlId="phoneNum">
                             <Form.Label  className="text-right teamA-form-lbl" column xs={3} md={4}>
                                 Phone Number
                             </Form.Label>
                             <Col xs={9} md={4}>
-                                <Form.Control defaultValue="Teesside"/>
+                                <Form.Control onChange={this.handleFormChange} defaultValue={this.state.user.phoneNumber}/>
                             </Col>
                         </Form.Group>
                     </Card.Body>
                     </Form>
+                    <Row >
+                        <Col className="text-center mb">
+                            <Button variant="success" className="mr" onClick={this.updateUser}>Save</Button>
+                            <Button variant="secondary" className="ml">Cancel</Button>
+                        </Col>
+                    </Row>
                 </Card>
                 </Container>
             </>
@@ -78,26 +92,23 @@ class UserProfile extends React.Component {
 
     componentDidMount() {
         var id = this.getQueryParams(this.props.location.pathname);
+        this.textInput = React.createRef(); 
         axios.get(`https://localhost:44375/api/accounts/getcustomer?accountId=${id}`).then(resp =>  {
             this.setState({
                 user: resp.data
             });
-            this.test();
         })
     }
 
-    requestDelete = ($event) => {
-        axios.put(`https://localhost:44375/api/accounts/requestAccountDelete?accountId=${this.state.user.id}`, {
-            accountId: this.state.user.id
-        }).then(resp => {
-            var updatedUser = this.state.user
-            updatedUser.isDeleteRequested = true
-            this.setState({
-                user: updatedUser
-            })
-        }).catch(err => {
-            console.log(err);
-        })
+    updateUser = () => {
+        console.log(this.state.user);
+        //todo: implement backend update user
+    }
+
+    handleFormChange = (e) => {
+        var user = this.state.user;
+        user[e.target.id] = e.target.value;
+        this.setState({user});
     }
 
     getLastDate = () => {
@@ -105,16 +116,14 @@ class UserProfile extends React.Component {
         return <p className="opaque">Last logged on at {date.toDateString()}</p>
     }
 
-    test() {
-        console.log(this.state.user);
-    }
-
     getQueryParams(path) {
         return path.substr(path.length - 36)
     } 
+
+    
 
 }
 
 
 
-export default UserProfile;
+export default EditUserProfile;
