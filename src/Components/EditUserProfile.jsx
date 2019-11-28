@@ -6,16 +6,22 @@ import axios from 'axios';
 import user from './user.png'
 import { useParams } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
+import { useHistory, Redirect } from 'react-router-dom'
 
 class EditUserProfile extends React.Component {
     state = {
         user: {
 
-        }
+        },
+        userUpdated: false
     }
+    history;
     render() {
         if (!this.state.user.id) {
             return <div />
+        }
+        if (this.state.userUpdated) {
+            return <Redirect to={`/users/${this.state.user.id}`}></Redirect>
         }
         return (
             <>
@@ -81,7 +87,7 @@ class EditUserProfile extends React.Component {
                     <Row >
                         <Col className="text-center mb">
                             <Button variant="success" className="mr" onClick={this.updateUser}>Save</Button>
-                            <Button variant="secondary" className="ml">Cancel</Button>
+                            <Button variant="secondary" className="ml" onClick={this.cancelUpdate}>Cancel</Button>
                         </Col>
                     </Row>
                 </Card>
@@ -92,7 +98,6 @@ class EditUserProfile extends React.Component {
 
     componentDidMount() {
         var id = this.getQueryParams(this.props.location.pathname);
-        this.textInput = React.createRef(); 
         axios.get(`https://localhost:44375/api/accounts/getcustomer?accountId=${id}`).then(resp =>  {
             this.setState({
                 user: resp.data
@@ -102,7 +107,28 @@ class EditUserProfile extends React.Component {
 
     updateUser = () => {
         console.log(this.state.user);
+        axios.put('https://localhost:44375/api/accounts/updateUser', {
+            id: this.state.user.id,
+            firstName: this.state.user.firstName,
+            lastName: this.state.user.lastName,
+            address: this.state.user.address,
+            postcode: this.state.user.postcode,
+            email: this.state.user.email,
+            phoneNumber: this.state.user.phoneNumber
+        }).then(resp => {
+            this.setState({
+                userUpdated: true
+            });
+        }).catch(err => {
+            console.log(err);
+        })
+
         //todo: implement backend update user
+        
+    }
+
+    cancelUpdate = () => {
+        this.props.history.goBack();
     }
 
     handleFormChange = (e) => {

@@ -54,10 +54,14 @@ code {
   font-size: 1rem !important;
 }
 
-.btn-edit {
+.teamA-btn {
   color: white !important;
 }
 
 .edit-lbl {
   font-size: 1.25rem !important;
+}
+
+.space-fix {
+  padding-left: 50px !important;
 }

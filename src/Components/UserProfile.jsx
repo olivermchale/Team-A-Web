@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav'
 import { Container, Card, Image, Badge, Button, Form, Col, Row } from 'react-bootstrap';
 import axios from 'axios';
 import user from './user.png'
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from 'react-router-dom';
 
@@ -12,26 +12,33 @@ class UserProfile extends React.Component {
     state = {
         user: {
 
-        }
+        },
+        navigateToEdit: false
     }
     render() {
         if (!this.state.user.id) {
             return <div />
+        }
+        if (this.state.navigateToEdit) {
+            return <Redirect to={`/users/edit/${this.state.user.id}`}></Redirect>
         }
         return (
             <>
                 <Container className="mt center">
                     <Card>
                         <Card.Body>
-                            <Card.Title>
-                                {this.state.user.firstName + ' ' + this.state.user.lastName}
-                                {/* todo: put out of row to make sure it doesnt mess up centering, add click to button+link */}
-                                <Button className="float-right" variant="warning">
-                                    <Link className="btn-edit" to={`edit/${this.state.user.id}`}>
-                                        Edit
-                                    </Link>
-                                </Button>
-                            </Card.Title>
+                            <Row>
+                                <Col md={{span: 4, offset: 4}} xs={{span: 4, offset: 4}}>
+                                    <Card.Title>
+                                        {this.state.user.firstName + ' ' + this.state.user.lastName}
+                                    </Card.Title>
+                                </Col>
+                                <Col md={4} xs = {4}>
+                                    <Button onClick={this.navigateToEdit} className="float-right teamA-btn" variant="warning">
+                                            Edit
+                                    </Button>
+                                </Col>
+                            </Row>
                             {this.getLastDate()}
                             <Image src={user} className="user-image"/>
                             <br/>
@@ -66,6 +73,12 @@ class UserProfile extends React.Component {
                 user: resp.data
             });
             this.test();
+        })
+    }
+
+    navigateToEdit = () => {
+        this.setState({
+            navigateToEdit: true
         })
     }
 
