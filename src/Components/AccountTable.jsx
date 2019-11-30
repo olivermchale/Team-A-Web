@@ -56,7 +56,7 @@ class AccountTable extends React.Component {
     componentDidMount() {
         axios.get('https://localhost:44375/api/accounts/getcustomers').then(resp =>  {
             this.setState({
-                users: resp.data
+                users: resp.data.customerAccounts
             });
         })
     }
