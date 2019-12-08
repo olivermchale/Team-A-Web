@@ -5,7 +5,7 @@ import { Container } from 'react-bootstrap';
 
 function idFormatter (cell, row)  {
     return (
-        <Link to = {`purchaseorders/create/${row.id}`}>
+        <Link to = {`purchaseorders/products/${row.id}`}>
             <span>{cell}</span>
         </Link>
     )
@@ -56,7 +56,7 @@ class MockProducts extends React.Component {
                     bootstrap4
                     hover
                     keyField='id' 
-                    data={ this.props.products } 
+                    data={ this.state.products } 
                     columns={ this.state.columns } />
                 </Container>
             </>

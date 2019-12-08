@@ -7,7 +7,7 @@ function idFormatter (cell, row)  {
         if(row.product) {
             if(row.product.inStock) {
                 return (
-                <Link to = {`purchaseorders/purchase/${row.product.id}`}>
+                <Link to = {`/purchaseorders/products/purchase/${row.product.id}`}>
                     <span>{cell}</span>
                 </Link>
                 )

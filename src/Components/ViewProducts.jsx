@@ -8,7 +8,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import ProductsTable from './ProductsTable';
 
 
-class CreatePurchaseOrder extends React.Component {
+class ViewProducts extends React.Component {
     state = {
         products: []
     }
@@ -67,4 +67,4 @@ class CreatePurchaseOrder extends React.Component {
 
 
 
-export default CreatePurchaseOrder;
+export default ViewProducts;

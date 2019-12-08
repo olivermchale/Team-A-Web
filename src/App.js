@@ -6,8 +6,9 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import AccountTable from './Components/AccountTable';
 import UserProfile from './Components/UserProfile';
 import EditUserProfile from './Components/EditUserProfile';
-import CreatePurchaseOrder from './Components/CreatePurchaseOrder';
+import ViewProducts from './Components/ViewProducts';
 import MockProducts from './Components/MockProducts';
+import PurchaseOrderPurchase from './Components/PurchaseOrderPurchase';
 
 function App() {
   return (
@@ -33,8 +34,12 @@ function App() {
       component={MockProducts}/>
     <Route
       exact
-      path='/purchaseorders/create/:id'
-      component={CreatePurchaseOrder}/>
+      path='/purchaseorders/products/:id'
+      component={ViewProducts}/>
+    <Route
+      exact
+      path='/purchaseorders/products/purchase/:id'
+      component={PurchaseOrderPurchase}/>
     </Router>
 
   );
