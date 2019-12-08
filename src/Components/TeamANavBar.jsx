@@ -21,14 +21,16 @@ class TeamANavBar extends React.Component {
                         <LinkContainer to="/users">
                             <Nav.Link>Users</Nav.Link>
                         </LinkContainer>
-                        <LinkContainer to="/etc">
-                            <Nav.Link >Etc</Nav.Link>
+                        <LinkContainer to="/products">
+                            <Nav.Link >products</Nav.Link>
                         </LinkContainer>
                     </Nav>
                 </Navbar>
             </>
         )
     }
+
+    
 }
 
 
