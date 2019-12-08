@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
 import ProductsTable from './ProductsTable';
 import PaymentForm from './PaymentForm';
+import { connect } from 'react-redux';
 
 
 class PurchaseOrderPurchase extends React.Component {
@@ -29,17 +30,27 @@ class PurchaseOrderPurchase extends React.Component {
                     <Col md={{span: 4, offset:4}} sm={{span: 10, offset: 4}}>
                         <PaymentForm></PaymentForm>
                     </Col>
-
                 </Row>
                 <Form>
                 </Form>
             </Card>
+            <button onClick={this.clicked}>btn</button>
         </Container>
-        )
+        );
+    }
+
+    clicked = () => {
+        console.log(this.state); 
+        console.log(this.props); //props holds our redux data now :)
     }
 
 }
 
+const mapStateToProps = (state) => ({
+    name: state.name,
+    price: state.price,
+    id: state.id
+})
 
 
-export default PurchaseOrderPurchase;
+export default connect(mapStateToProps)(PurchaseOrderPurchase);

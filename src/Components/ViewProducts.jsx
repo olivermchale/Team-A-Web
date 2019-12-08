@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
 import ProductsTable from './ProductsTable';
+import { connect } from 'react-redux';
 
 
 class ViewProducts extends React.Component {
@@ -23,6 +24,7 @@ class ViewProducts extends React.Component {
                             </Col>
                             <Col xs={12} md={8}>
                                 <h1>Product Details</h1>
+                                <p>{console.log(this.props)}</p>
                                 {this.productPrices()}
                             </Col>
                         </Row>
@@ -57,6 +59,7 @@ class ViewProducts extends React.Component {
             this.setState({
                 products: resp.data
             });
+            
         })
     }
     
@@ -67,4 +70,4 @@ class ViewProducts extends React.Component {
 
 
 
-export default ViewProducts;
+export default connect()(ViewProducts);

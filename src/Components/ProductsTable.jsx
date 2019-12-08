@@ -2,52 +2,52 @@ import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
-function idFormatter (cell, row)  {
-        if(row.product) {
-            if(row.product.inStock) {
+class ProductsTable extends React.Component {
+
+    idFormatter = (cell, row) => {
+        if (row.product) {
+            if (row.product.inStock) {
                 return (
-                <Link to = {`/purchaseorders/products/purchase/${row.product.id}`}>
-                    <span>{cell}</span>
-                </Link>
+                    <Link onClick={this.updateProps(row.product)} to={`/purchaseorders/products/purchase/${row.product.id}`}>
+                        <span>{cell}</span>
+                    </Link>
                 )
             }
         }
         return (
             <span>{cell}</span>
-        );
-}
+        )
+    }
+    restockFormatter = (cell, row) => {
+        if (row.product) {
+            if (row.product.expectedRestock !== null) {
+                if (row.product.expectedRestock === true) {
+                    return (
+                        <p>Yes</p>
+                    )
+                }
+            }
+        }
+        return (
+            <p>No</p>
+        )
+    }
 
-function restockFormatter (cell, row) {
-    if(row.product) {
-        if(row.product.expectedRestock !== null) {
-            if(row.product.expectedRestock === true) {
+    stockFormatter = (cell, row) => {
+        if (row.product) {
+            if (row.product.inStock) {
                 return (
                     <p>Yes</p>
                 )
             }
         }
+        return (
+            <p>No</p>
+        )
     }
-    return (
-        <p>No</p>
-    )
-}
 
-function stockFormatter (cell, row) {
-    if(row.product) {
-        if(row.product.inStock) {
-            return (
-                <p>Yes</p>
-            )
-        }
-    }
-    return (
-        <p>No</p>
-    )
-}
-
-class ProductsTable extends React.Component {
-    
     state = {
         user: {
 
@@ -78,7 +78,7 @@ class ProductsTable extends React.Component {
             {
                 dataField: 'product.name',
                 text: 'Product Name',
-                formatter: idFormatter
+                formatter: this.idFormatter
             },
             {
                 dataField: 'source',
@@ -91,12 +91,12 @@ class ProductsTable extends React.Component {
             {
                 dataField: 'product.inStock',
                 text: 'In Stock?',
-                formatter: stockFormatter
+                formatter: this.stockFormatter
             },
             {
                 dataField: 'product.expectedRestock',
                 text: 'Restock Soon?',
-                formatter: restockFormatter
+                formatter: this.restockFormatter
             },
         ]
     }
@@ -104,26 +104,36 @@ class ProductsTable extends React.Component {
         return (
             <>
                 <Container style={{ marginTop: 50 }}>
-                    <BootstrapTable 
-                    striped
-                    bootstrap4
-                    hover
-                    keyField='id' 
-                    data={ this.props.products } 
-                    columns={ this.state.columns } />
+                    <BootstrapTable
+                        striped
+                        bootstrap4
+                        hover
+                        keyField='id'
+                        data={this.props.products}
+                        columns={this.state.columns} />
+                        <button onClick={this.clicked}>btn</button>
                 </Container>
             </>
         )
+    }
+
+    updateProps = (product) => {
+        this.props.dispatch({type: "PURCHASE", id: product.id, price: product.price, name: product.name});
     }
 
     componentDidMount() {
         console.log(this.props);
     }
 
-    
+    clicked = () => {
+        console.log(this.props);
+        console.log(this.state);
+    }
+
+
 
 }
 
 
 
-export default ProductsTable;
+export default connect()(ProductsTable);
