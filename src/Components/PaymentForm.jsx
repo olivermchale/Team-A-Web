@@ -22,7 +22,7 @@ export default class PaymentForm extends React.Component {
         this.setState({ [name]: value });
     }
 
-    sendFormDataToParent = () => {
+    submitForm = () => {
         this.props.callback({
             cvc: this.state.cvc,
             expiry: this.state.expiry,
@@ -92,7 +92,7 @@ export default class PaymentForm extends React.Component {
                         </Col>
                     </Row>
                     <div className="mt">
-                        <Button className="mb" onClick={this.sendFormDataToParent} variant="primary">Submit Order</Button>
+                        <Button className="mb" onClick={this.submitForm} variant="primary">Submit Order</Button>
                     </div>
                 </Form>
             </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Link } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
+import { Container, Card } from 'react-bootstrap';
 
 function idFormatter (cell, row)  {
     return (
@@ -51,13 +51,15 @@ class MockProducts extends React.Component {
         return (
             <>
                 <Container style={{ marginTop: 50 }}>
-                    <BootstrapTable 
-                    striped
-                    bootstrap4
-                    hover
-                    keyField='id' 
-                    data={ this.state.products } 
-                    columns={ this.state.columns } />
+                    <Card>
+                        <BootstrapTable 
+                        striped
+                        bootstrap4
+                        hover
+                        keyField='id' 
+                        data={ this.state.products } 
+                        columns={ this.state.columns } />
+                    </Card>
                 </Container>
             </>
         )

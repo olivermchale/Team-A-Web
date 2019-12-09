@@ -108,7 +108,7 @@ class ProductsTable extends React.Component {
                         striped
                         bootstrap4
                         hover
-                        keyField='id'
+                        keyField='product.id'
                         data={this.props.products}
                         columns={this.state.columns} />
                         <button onClick={this.clicked}>btn</button>

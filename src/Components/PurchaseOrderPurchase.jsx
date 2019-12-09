@@ -20,9 +20,20 @@ class PurchaseOrderPurchase extends React.Component {
         cardName: '',
         expiry :'',
         cvc: '',
-        number: ''
+        number: '',
+        user: {}
     }
     render() {
+        if(!this.state.user.id) {
+            return (
+                <Container className="mt center">
+                    <Card>
+                        <Spinner className="spin-center" animation="border" role="status"></Spinner>
+                        <h5> Loading, please wait... </h5>
+                    </Card>
+                </Container>
+            )
+        }
         return (
             <Container className="mt center">
             <Card>
@@ -56,6 +67,7 @@ class PurchaseOrderPurchase extends React.Component {
                             name="address" 
                             type="text"
                             onChange={this.handleInputChange} 
+                            defaultValue={this.state.user.address}
                             placeholder="Address" />
                     </Col>
                     <Col className="mt-15" md={{span: 4, offset:4}} xs = {12}>
@@ -63,6 +75,7 @@ class PurchaseOrderPurchase extends React.Component {
                             name="postcode" 
                             type="text"
                             onChange={this.handleInputChange} 
+                            defaultValue={this.state.user.postcode}
                             placeholder="Postcode" />
                     </Col>
                     <Col className="mt-15 mb" md={{span: 4, offset:4}} xs = {12}>
@@ -70,6 +83,7 @@ class PurchaseOrderPurchase extends React.Component {
                             name="name" 
                             type="text"
                             onChange={this.handleInputChange} 
+                            defaultValue={(this.state.user.firstName + '' + this.state.user.lastName)}
                             placeholder="Name" />
                     </Col>
                     <Col xs={12} md={12}>
@@ -78,13 +92,23 @@ class PurchaseOrderPurchase extends React.Component {
                 </Row>
                 <Row>
                     <Col md={{span: 4, offset:4}} sm={{span: 10, offset: 2}}>
-                        <PaymentForm callback={this.paymentInfoHandler}></PaymentForm>
+                        <PaymentForm callback={this.orderHandler}></PaymentForm>
                     </Col>
                 </Row>
             </Card>
-            <button onClick={this.clicked}>btn</button>
         </Container>
         );
+    }
+
+    componentWillMount() {
+        var userId = localStorage.getItem('currentUserId');
+        if(userId != null) {
+            axios.get(`https://localhost:44375/api/accounts/getcustomer?accountId=${userId}`).then(resp => {
+                this.setState({
+                    user: resp.data
+                })
+            });
+        }
     }
 
     clicked = () => {
@@ -97,11 +121,11 @@ class PurchaseOrderPurchase extends React.Component {
         this.setState({ [name]: value });
     }
 
-    paymentInfoHandler = (paymentInfo) => {
-        this.state.cvc = paymentInfo.cvc;
-        this.state.number = paymentInfo.number;
-        this.state.cardName = paymentInfo.name;
-        this.state.expiry = paymentInfo.expiry;
+    orderHandler = (orderInfo) => {
+        this.state.cvc = orderInfo.cvc;
+        this.state.number = orderInfo.number;
+        this.state.cardName = orderInfo.name;
+        this.state.expiry = orderInfo.expiry;
     }
 
 }

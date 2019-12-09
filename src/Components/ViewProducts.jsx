@@ -55,7 +55,7 @@ class ViewProducts extends React.Component {
 
     componentDidMount() {
         var id = this.getQueryParams(this.props.location.pathname);
-        axios.get(`https://localhost:44396/api/purchaseorders/getproduct?id=${id}`).then(resp =>  {
+        axios.get(`https://localhost:44396/api/products/getproduct?id=${id}`).then(resp =>  {
             this.setState({
                 products: resp.data
             });
