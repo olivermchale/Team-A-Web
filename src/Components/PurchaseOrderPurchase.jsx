@@ -83,7 +83,7 @@ class PurchaseOrderPurchase extends React.Component {
                             name="name" 
                             type="text"
                             onChange={this.handleInputChange} 
-                            defaultValue={(this.state.user.firstName + '' + this.state.user.lastName)}
+                            defaultValue={(this.state.user.firstName + ' ' + this.state.user.lastName)}
                             placeholder="Name" />
                     </Col>
                     <Col xs={12} md={12}>

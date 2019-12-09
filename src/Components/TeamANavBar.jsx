@@ -22,7 +22,7 @@ class TeamANavBar extends React.Component {
                             <Nav.Link>Users</Nav.Link>
                         </LinkContainer>
                         <LinkContainer to="/products">
-                            <Nav.Link >products</Nav.Link>
+                            <Nav.Link >Products</Nav.Link>
                         </LinkContainer>
                     </Nav>
                 </Navbar>
