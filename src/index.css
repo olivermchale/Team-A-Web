@@ -16,6 +16,10 @@ code {
   margin-top: 30px;
 }
 
+.mt-15 {
+  margin-top: 15px;
+}
+
 .mb {
   margin-bottom: 10px;
 }
@@ -64,4 +68,9 @@ code {
 
 .space-fix {
   padding-left: 50px !important;
+}
+
+.placeholder-img {
+  height: 100px;
+  width: 100px;
 }
