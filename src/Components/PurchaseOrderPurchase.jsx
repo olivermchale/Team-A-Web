@@ -16,7 +16,11 @@ class PurchaseOrderPurchase extends React.Component {
         quantity: 1,
         address: '',
         name: '',
-        postcode:  ''
+        postcode:  '',
+        cardName: '',
+        expiry :'',
+        cvc: '',
+        number: ''
     }
     render() {
         return (
@@ -74,7 +78,7 @@ class PurchaseOrderPurchase extends React.Component {
                 </Row>
                 <Row>
                     <Col md={{span: 4, offset:4}} sm={{span: 10, offset: 2}}>
-                        <PaymentForm></PaymentForm>
+                        <PaymentForm callback={this.paymentInfoHandler}></PaymentForm>
                     </Col>
                 </Row>
             </Card>
@@ -91,6 +95,13 @@ class PurchaseOrderPurchase extends React.Component {
     handleInputChange = (e) => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
+    }
+
+    paymentInfoHandler = (paymentInfo) => {
+        this.state.cvc = paymentInfo.cvc;
+        this.state.number = paymentInfo.number;
+        this.state.cardName = paymentInfo.name;
+        this.state.expiry = paymentInfo.expiry;
     }
 
 }

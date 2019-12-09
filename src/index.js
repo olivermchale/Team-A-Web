@@ -26,6 +26,7 @@ function reducer(state = initialState, action) {
 }
 const store = createStore(reducer);
 store.dispatch({type: "PURCHASE2"});
+localStorage.setItem('currentUserId', '4cd9cfd1-e950-44cd-680a-08d771a7cefb')
 const rootElement = document.getElementById('root')
 ReactDOM.render(
     <Provider store={store}>
