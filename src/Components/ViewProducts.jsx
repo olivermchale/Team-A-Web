@@ -24,7 +24,6 @@ class ViewProducts extends React.Component {
                             </Col>
                             <Col xs={12} md={8}>
                                 <h1>Product Details</h1>
-                                <p>{console.log(this.props)}</p>
                                 {this.productPrices()}
                             </Col>
                         </Row>

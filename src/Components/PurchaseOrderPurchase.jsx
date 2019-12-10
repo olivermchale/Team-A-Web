@@ -18,9 +18,9 @@ class PurchaseOrderPurchase extends React.Component {
         name: '',
         postcode:  '',
         cardName: '',
-        expiry :'',
-        cvc: '',
-        number: '',
+        cardExpiry :'',
+        cardCvc: '',
+        cardNumber: '',
         user: {}
     }
     render() {
@@ -122,10 +122,43 @@ class PurchaseOrderPurchase extends React.Component {
     }
 
     orderHandler = (orderInfo) => {
-        this.state.cvc = orderInfo.cvc;
-        this.state.number = orderInfo.number;
+        this.state.cardCvc = orderInfo.cvc;
+        this.state.cardNumber = orderInfo.number;
         this.state.cardName = orderInfo.name;
-        this.state.expiry = orderInfo.expiry;
+        this.state.cardExpiry = orderInfo.expiry;
+        this.state.productPrice = this.props.price;
+        this.state.productId = this.props.id;
+        this.state.productName = this.props.name;
+        this.state.productSource = this.props.source;
+        this.createOrder();
+    }
+
+    createOrder = () => {
+        axios.post('https://localhost:44396/api/orders/createOrder', {
+            purchasedBy: this.state.user.id,
+            productId: this.state.productId,
+            purchasedOn: new Date(),
+            productName: this.state.productName,
+            quantity: this.state.quantity,
+            productPrice: this.state.productPrice,
+            address: this.state.user.address,
+            postcode: this.state.user.postcode,
+            paymentInformation: {
+                cardName: this.state.cardName,
+                cardNumber: this.state.cardNumber,
+                cardExpiry: this.state.cardExpiry,
+                cardCvc: this.state.cardCvc,
+            },
+            purchaseStatus: {
+                name: 'Ordered'
+            }
+        }).then(resp => {
+            this.setState({
+                userUpdated: true
+            });
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
 }
@@ -133,6 +166,7 @@ class PurchaseOrderPurchase extends React.Component {
 const mapStateToProps = (state) => ({
     name: state.name,
     price: state.price,
+    source: state.source,
     id: state.id
 })
 

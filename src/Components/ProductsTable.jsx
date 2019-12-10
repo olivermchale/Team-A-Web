@@ -117,7 +117,15 @@ class ProductsTable extends React.Component {
     }
 
     updateProps = (product) => {
-        this.props.dispatch({type: "PURCHASE", id: product.id, price: product.price, name: product.name});
+        this.props.dispatch(
+            {
+                type: "PURCHASE", 
+                id: product.id, 
+                price: product.price, 
+                name: product.name, 
+                source: product.source
+            }
+        );
     }
 
     componentDidMount() {

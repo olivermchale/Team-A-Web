@@ -10,7 +10,8 @@ import { createStore } from 'redux';
 const initialState = {
     name: 'none',
     price: '0.00',
-    id: 1
+    id: 1,
+    source: 'error'
 }
 function reducer(state = initialState, action) {
     switch(action.type) {
@@ -19,6 +20,7 @@ function reducer(state = initialState, action) {
             name: action.name,
             price: action.price,
             id: action.id,
+            source: action.source
         }
         default:
             return state;

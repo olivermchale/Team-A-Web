@@ -22,10 +22,18 @@ export default class PaymentForm extends React.Component {
         this.setState({ [name]: value });
     }
 
+    createDate = (expiry) => {
+        var mm = expiry.substring(0, 2)
+        var yy = expiry.substring(3)
+        var year = ('20' + yy);
+        var month = (parseInt(mm) - 1).toString();
+        return new Date(year, month);
+    }
+
     submitForm = () => {
         this.props.callback({
             cvc: this.state.cvc,
-            expiry: this.state.expiry,
+            expiry: this.createDate(this.state.expiry),
             name: this.state.name,
             number: this.state.number
         })
