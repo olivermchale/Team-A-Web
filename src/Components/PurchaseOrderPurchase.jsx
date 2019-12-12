@@ -1,14 +1,17 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
-import { Container, Card, Form, Image, Row, Col, Spinner} from 'react-bootstrap';
+import { Container, Card, Form, Image, Row, Col, Spinner } from 'react-bootstrap';
 import { ateam } from './ateam.png';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
 import ProductsTable from './ProductsTable';
 import PaymentForm from './PaymentForm';
+import LoadingOverlay from 'react-loading-overlay';
 import { connect } from 'react-redux';
-
+import SweetAlert from 'sweetalert2-react';
+import { useHistory, Redirect } from 'react-router-dom';
+import 'sweetalert/dist/sweetalert.css';
 
 class PurchaseOrderPurchase extends React.Component {
     state = {
@@ -16,16 +19,22 @@ class PurchaseOrderPurchase extends React.Component {
         quantity: 1,
         address: '',
         name: '',
-        postcode:  '',
+        postcode: '',
         cardName: '',
-        cardExpiry :'',
+        cardExpiry: '',
         cardCvc: '',
         cardNumber: '',
         source: '',
-        user: {}
+        user: {},
+        loading: false,
+        purchased: false,
+        navigate: false
     }
     render() {
-        if(!this.state.user.id) {
+        if (this.state.navigate) {
+            return <Redirect to={`/purchaseorders/products`}></Redirect>
+        }
+        if (!this.state.user.id) {
             return (
                 <Container className="mt center">
                     <Card>
@@ -35,75 +44,95 @@ class PurchaseOrderPurchase extends React.Component {
                 </Container>
             )
         }
+        if (this.state.purchased) {
+            return (
+                <SweetAlert
+                show={this.state.purchased}
+                title="Purchase Successful!"
+                text="Continue Shopping"
+                onConfirm={() => {
+                    this.setState({ navigate: true, purchased: false, loading: false })
+                }}
+              />
+            )
+
+        }
         return (
-            <Container className="mt center">
-            <Card>
-                <Row className="mt">
-                    <Col xs={12} md={4}>
-                        <Image className="placeholder-img" src={"https://external-preview.redd.it/LddK4slWhSO6pNNkBs9_gYnnCnLIjAz3lIFOYR2Bzd4.jpg?auto=webp&s=9e8b51aa6fe8d153ad09f893e132ae5a37775729"}/>
-                    </Col>
-                    <Col xs={12} md={4}>
-                        <h1>{this.props.name}</h1>
-                    </Col>
-                </Row>
-                <Form.Group as={Row}>
-                    <Col xs={9} md={{span: 4, offset: 4}}>
-                        <Form.Control 
-                            name="quantity" 
-                            onChange={this.handleInputChange} 
-                            placeholder="Quantity" />
-                    </Col>
-                </Form.Group>
-                <Row className="mt-15">
-                    <Col xs={12} md={{span: 4, offset: 4}}>
-                        <p>Price: {'£'+(this.props.price * this.state.quantity).toFixed(2)}</p>
-                    </Col>
-                    <Col xs={12} md={12}>
-                        <hr/>
-                    </Col>
-                </Row>
-                <Row className="mt-15">
-                    <Col className="mt-15" md={{span: 4, offset:4}} xs = {12}>
-                        <Form.Control 
-                            name="address" 
-                            type="text"
-                            onChange={this.handleInputChange} 
-                            defaultValue={this.state.user.address}
-                            placeholder="Address" />
-                    </Col>
-                    <Col className="mt-15" md={{span: 4, offset:4}} xs = {12}>
-                        <Form.Control 
-                            name="postcode" 
-                            type="text"
-                            onChange={this.handleInputChange} 
-                            defaultValue={this.state.user.postcode}
-                            placeholder="Postcode" />
-                    </Col>
-                    <Col className="mt-15 mb" md={{span: 4, offset:4}} xs = {12}>
-                        <Form.Control 
-                            name="name" 
-                            type="text"
-                            onChange={this.handleInputChange} 
-                            defaultValue={(this.state.user.firstName + ' ' + this.state.user.lastName)}
-                            placeholder="Name" />
-                    </Col>
-                    <Col xs={12} md={12}>
-                        <hr/>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col md={{span: 4, offset:4}} sm={{span: 10, offset: 2}}>
-                        <PaymentForm callback={this.orderHandler}></PaymentForm>
-                    </Col>
-                </Row>
-            </Card>
-        </Container>
+            <LoadingOverlay
+                active={this.state.loading}
+                spinner
+                text='Creating Purchase Order...'>
+
+                <Container className="mt center">
+                    <Card>
+                        <Row className="mt">
+                            <Col xs={12} md={4}>
+                                <Image className="placeholder-img" src={"https://external-preview.redd.it/LddK4slWhSO6pNNkBs9_gYnnCnLIjAz3lIFOYR2Bzd4.jpg?auto=webp&s=9e8b51aa6fe8d153ad09f893e132ae5a37775729"} />
+                            </Col>
+                            <Col xs={12} md={4}>
+                                <h1>{this.props.name}</h1>
+                            </Col>
+                        </Row>
+                        <Form.Group as={Row}>
+                            <Col xs={9} md={{ span: 4, offset: 4 }}>
+                                <Form.Control
+                                    name="quantity"
+                                    onChange={this.handleInputChange}
+                                    placeholder="Quantity" />
+                            </Col>
+                        </Form.Group>
+                        <Row className="mt-15">
+                            <Col xs={12} md={{ span: 4, offset: 4 }}>
+                                <p>Price: {'£' + (this.props.price * this.state.quantity).toFixed(2)}</p>
+                            </Col>
+                            <Col xs={12} md={12}>
+                                <hr />
+                            </Col>
+                        </Row>
+                        <Row className="mt-15">
+                            <Col className="mt-15" md={{ span: 4, offset: 4 }} xs={12}>
+                                <Form.Control
+                                    name="address"
+                                    type="text"
+                                    onChange={this.handleInputChange}
+                                    defaultValue={this.state.user.address}
+                                    placeholder="Address" />
+                            </Col>
+                            <Col className="mt-15" md={{ span: 4, offset: 4 }} xs={12}>
+                                <Form.Control
+                                    name="postcode"
+                                    type="text"
+                                    onChange={this.handleInputChange}
+                                    defaultValue={this.state.user.postcode}
+                                    placeholder="Postcode" />
+                            </Col>
+                            <Col className="mt-15 mb" md={{ span: 4, offset: 4 }} xs={12}>
+                                <Form.Control
+                                    name="name"
+                                    type="text"
+                                    onChange={this.handleInputChange}
+                                    defaultValue={(this.state.user.firstName + ' ' + this.state.user.lastName)}
+                                    placeholder="Name" />
+                            </Col>
+                            <Col xs={12} md={12}>
+                                <hr />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col md={{ span: 4, offset: 4 }} sm={{ span: 10, offset: 2 }}>
+                                <PaymentForm callback={this.orderHandler}></PaymentForm>
+                            </Col>
+                        </Row>
+                    </Card>
+
+                </Container>
+            </LoadingOverlay>
         );
     }
 
     componentWillMount() {
         var userId = localStorage.getItem('currentUserId');
-        if(userId != null) {
+        if (userId != null) {
             axios.get(`https://localhost:44375/api/accounts/getcustomer?accountId=${userId}`).then(resp => {
                 this.setState({
                     user: resp.data
@@ -113,7 +142,7 @@ class PurchaseOrderPurchase extends React.Component {
     }
 
     clicked = () => {
-        console.log(this.state); 
+        console.log(this.state);
         console.log(this.props); //props holds our redux data now :)
     }
 
@@ -135,6 +164,7 @@ class PurchaseOrderPurchase extends React.Component {
     }
 
     createOrder = () => {
+        this.setState({ loading: true })
         axios.post('https://localhost:44396/api/orders/createOrder', {
             purchasedBy: this.state.user.id,
             productId: this.state.productId,
@@ -156,10 +186,14 @@ class PurchaseOrderPurchase extends React.Component {
             }
         }).then(resp => {
             this.setState({
-                userUpdated: true
+                userUpdated: true,
+                purchased: true
             });
         }).catch(err => {
             console.log(err);
+            this.setState({
+                loading: false,
+            })
         })
     }
 
