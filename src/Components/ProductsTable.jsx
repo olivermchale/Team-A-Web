@@ -10,7 +10,7 @@ class ProductsTable extends React.Component {
         if (row.product) {
             if (row.product.inStock) {
                 return (
-                    <Link onClick={this.updateProps(row.product)} to={`/purchaseorders/products/purchase/${row.product.id}`}>
+                    <Link onClick={this.updateProps(row)} to={`/purchaseorders/products/purchase/${row.product.id}`}>
                         <span>{cell}</span>
                     </Link>
                 )
@@ -116,14 +116,14 @@ class ProductsTable extends React.Component {
         )
     }
 
-    updateProps = (product) => {
+    updateProps = (row) => {
         this.props.dispatch(
             {
                 type: "PURCHASE", 
-                id: product.id, 
-                price: product.price, 
-                name: product.name, 
-                source: product.source
+                id: row.product.id, 
+                price: row.product.price, 
+                name: row.product.name, 
+                source: row.source
             }
         );
     }

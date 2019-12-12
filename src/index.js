@@ -28,8 +28,8 @@ function reducer(state = initialState, action) {
 }
 const store = createStore(reducer);
 store.dispatch({type: "PURCHASE2"});
-localStorage.setItem('currentUserId', '4cd9cfd1-e950-44cd-680a-08d771a7cefb')
-const rootElement = document.getElementById('root')
+localStorage.setItem('currentUserId', 'f6f1c748-665b-462a-fa13-08d77ef2c1f6');
+const rootElement = document.getElementById('root');
 document.body.style = 'background: #F5F5F5;';
 ReactDOM.render(
     <Provider store={store}>

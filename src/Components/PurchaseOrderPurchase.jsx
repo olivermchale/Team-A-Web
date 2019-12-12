@@ -21,6 +21,7 @@ class PurchaseOrderPurchase extends React.Component {
         cardExpiry :'',
         cardCvc: '',
         cardNumber: '',
+        source: '',
         user: {}
     }
     render() {
@@ -143,6 +144,7 @@ class PurchaseOrderPurchase extends React.Component {
             productPrice: this.state.productPrice,
             address: this.state.user.address,
             postcode: this.state.user.postcode,
+            source: this.state.productSource,
             paymentInformation: {
                 cardName: this.state.cardName,
                 cardNumber: this.state.cardNumber,
