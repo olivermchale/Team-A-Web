@@ -34,7 +34,7 @@ function App() {
       component={MockProducts}/>
     <Route
       exact
-      path='/purchaseorders/products/:id'
+      path='/purchaseorders/products/:ean'
       component={ViewProducts}/>
     <Route
       exact

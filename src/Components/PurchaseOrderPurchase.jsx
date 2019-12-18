@@ -32,7 +32,7 @@ class PurchaseOrderPurchase extends React.Component {
     }
     render() {
         if (this.state.navigate) {
-            return <Redirect to={`/purchaseorders/products`}></Redirect>
+            return <Redirect to={`/products`}></Redirect>
         }
         if (!this.state.user.id) {
             return (
@@ -44,25 +44,21 @@ class PurchaseOrderPurchase extends React.Component {
                 </Container>
             )
         }
-        if (this.state.purchased) {
-            return (
+
+        return (
+            <>
                 <SweetAlert
                 show={this.state.purchased}
                 title="Purchase Successful!"
                 text="Continue Shopping"
                 onConfirm={() => {
-                    this.setState({ navigate: true, purchased: false, loading: false })
+                    this.removeSwal()
                 }}
-              />
-            )
-
-        }
-        return (
+                />
             <LoadingOverlay
                 active={this.state.loading}
                 spinner
                 text='Creating Purchase Order...'>
-
                 <Container className="mt center">
                     <Card>
                         <Row className="mt">
@@ -127,6 +123,7 @@ class PurchaseOrderPurchase extends React.Component {
 
                 </Container>
             </LoadingOverlay>
+            </>
         );
     }
 
@@ -141,9 +138,10 @@ class PurchaseOrderPurchase extends React.Component {
         }
     }
 
-    clicked = () => {
-        console.log(this.state);
-        console.log(this.props); //props holds our redux data now :)
+    removeSwal = () => {
+        this.setState({ 
+            navigate: true, purchased: false, loading: false 
+        })
     }
 
     handleInputChange = (e) => {
@@ -160,6 +158,7 @@ class PurchaseOrderPurchase extends React.Component {
         this.state.productId = this.props.id;
         this.state.productName = this.props.name;
         this.state.productSource = this.props.source;
+        this.state.externalId = this.props.externalId;
         this.createOrder();
     }
 
@@ -171,6 +170,7 @@ class PurchaseOrderPurchase extends React.Component {
             purchasedOn: new Date(),
             productName: this.state.productName,
             quantity: this.state.quantity,
+            externalId: this.state.externalId,
             productPrice: this.state.productPrice,
             address: this.state.user.address,
             postcode: this.state.user.postcode,
@@ -186,7 +186,7 @@ class PurchaseOrderPurchase extends React.Component {
             }
         }).then(resp => {
             this.setState({
-                userUpdated: true,
+                loading: false,
                 purchased: true
             });
         }).catch(err => {
@@ -203,7 +203,8 @@ const mapStateToProps = (state) => ({
     name: state.name,
     price: state.price,
     source: state.source,
-    id: state.id
+    id: state.id,
+    externalId: state.externalId,
 })
 
 

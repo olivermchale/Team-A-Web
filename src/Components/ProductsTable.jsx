@@ -7,14 +7,12 @@ import { connect } from 'react-redux';
 class ProductsTable extends React.Component {
 
     idFormatter = (cell, row) => {
-        if (row.product) {
-            if (row.product.inStock) {
-                return (
-                    <Link onClick={this.updateProps(row)} to={`/purchaseorders/products/purchase/${row.product.id}`}>
-                        <span>{cell}</span>
-                    </Link>
-                )
-            }
+        if (row.inStock) {
+            return (
+                <Link onClick={() => this.updateProps(row)} to={`/purchaseorders/products/purchase/${row.id}`}>
+                    <span>{cell}</span>
+                </Link>
+            )
         }
         return (
             <span>{cell}</span>
@@ -36,12 +34,10 @@ class ProductsTable extends React.Component {
     }
 
     stockFormatter = (cell, row) => {
-        if (row.product) {
-            if (row.product.inStock) {
-                return (
-                    <p>Yes</p>
-                )
-            }
+        if (row.inStock) {
+            return (
+                <p>Yes</p>
+            )
         }
         return (
             <p>No</p>
@@ -76,7 +72,7 @@ class ProductsTable extends React.Component {
         ],
         columns: [
             {
-                dataField: 'product.name',
+                dataField: 'name',
                 text: 'Product Name',
                 formatter: this.idFormatter
             },
@@ -85,16 +81,16 @@ class ProductsTable extends React.Component {
                 text: 'Source'
             },
             {
-                dataField: 'product.price',
+                dataField: 'price',
                 text: 'Price',
             },
             {
-                dataField: 'product.inStock',
+                dataField: 'inStock',
                 text: 'In Stock?',
                 formatter: this.stockFormatter
             },
             {
-                dataField: 'product.expectedRestock',
+                dataField: 'expectedRestock',
                 text: 'Restock Soon?',
                 formatter: this.restockFormatter
             },
@@ -108,7 +104,7 @@ class ProductsTable extends React.Component {
                         striped
                         bootstrap4
                         hover
-                        keyField='product.id'
+                        keyField='id'
                         data={this.props.products}
                         columns={this.state.columns} />
                 </Container>
@@ -120,10 +116,11 @@ class ProductsTable extends React.Component {
         this.props.dispatch(
             {
                 type: "PURCHASE", 
-                id: row.product.id, 
-                price: row.product.price, 
-                name: row.product.name, 
-                source: row.source
+                id: row.id, 
+                price: row.price, 
+                name: row.name, 
+                source: row.source,
+                externalId: row.externalId
             }
         );
     }

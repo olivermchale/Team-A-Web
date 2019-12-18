@@ -53,8 +53,8 @@ class ViewProducts extends React.Component {
     }
 
     componentDidMount() {
-        var id = this.getQueryParams(this.props.location.pathname);
-        axios.get(`https://localhost:44396/api/products/getproduct?id=${id}`).then(resp =>  {
+        var ean = this.props.match.params.ean;
+        axios.get(`https://localhost:44396/api/products/getProductsByEan?ean=${ean}`).then(resp =>  {
             this.setState({
                 products: resp.data
             });
@@ -62,9 +62,7 @@ class ViewProducts extends React.Component {
         })
     }
     
-    getQueryParams(path) {
-        return path.substr(path.length - 1)
-    } 
+
 }
 
 

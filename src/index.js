@@ -20,7 +20,8 @@ function reducer(state = initialState, action) {
             name: action.name,
             price: action.price,
             id: action.id,
-            source: action.source
+            source: action.source,
+            externalId: action.externalId
         }
         default:
             return state;
@@ -28,7 +29,7 @@ function reducer(state = initialState, action) {
 }
 const store = createStore(reducer);
 store.dispatch({type: "PURCHASE2"});
-localStorage.setItem('currentUserId', '34d9f1ae-dd53-4468-a9ca-08d77f1772d1');
+localStorage.setItem('currentUserId', '4cd9cfd1-e950-44cd-680a-08d771a7cefb');
 const rootElement = document.getElementById('root');
 document.body.style = 'background: #F5F5F5;';
 ReactDOM.render(
