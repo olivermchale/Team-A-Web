@@ -9,6 +9,8 @@ import EditUserProfile from './Components/EditUserProfile';
 import ViewProducts from './Components/ViewProducts';
 import MockProducts from './Components/MockProducts';
 import PurchaseOrderPurchase from './Components/PurchaseOrderPurchase';
+import OrdersTable from './Components/OrdersTable';
+import OrderDetails from './Components/OrderDetails';
 
 function App() {
   return (
@@ -40,8 +42,15 @@ function App() {
       exact
       path='/purchaseorders/products/purchase/:id'
       component={PurchaseOrderPurchase}/>
+    <Route
+      exact
+      path='/purchaseorders/'
+      component={OrdersTable}/>
+    <Route
+      exact
+      path='/purchaseorder/:id'
+      component={OrderDetails}/>
     </Router>
-
   );
 }
 

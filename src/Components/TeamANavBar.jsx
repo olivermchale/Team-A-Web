@@ -13,7 +13,6 @@ class TeamANavBar extends React.Component {
                 <LinkContainer to="/">
                 <Navbar.Brand>Team A</Navbar.Brand>
                 </LinkContainer>
-                    
                     <Nav className="mr-auto">
                         <LinkContainer to="/">
                             <Nav.Link>Home</Nav.Link>
@@ -23,6 +22,9 @@ class TeamANavBar extends React.Component {
                         </LinkContainer>
                         <LinkContainer to="/products">
                             <Nav.Link >Products</Nav.Link>
+                        </LinkContainer>
+                        <LinkContainer to="/purchaseorders">
+                            <Nav.Link >Purchase Orders</Nav.Link>
                         </LinkContainer>
                     </Nav>
                 </Navbar>
