@@ -6,7 +6,7 @@ import { Container, Card } from 'react-bootstrap';
 
 function idFormatter (cell, row)  {
     return (
-        <Link to = {`users/${row.id}`}>
+        <Link to = {`purchaseorders/${row.id}`}>
             <span>{cell}</span>
         </Link>
     )

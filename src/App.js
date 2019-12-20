@@ -48,7 +48,7 @@ function App() {
       component={OrdersTable}/>
     <Route
       exact
-      path='/purchaseorder/:id'
+      path='/purchaseorders/:id'
       component={OrderDetails}/>
     </Router>
   );

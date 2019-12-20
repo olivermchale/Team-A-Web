@@ -10,17 +10,13 @@ import { Link } from 'react-router-dom';
 
 class OrderDetails extends React.Component {
     state = {
-        user: {
+        order: {
 
         },
-        navigateToEdit: false
     }
     render() {
-        if (!this.state.user.id) {
+        if (!this.state.order.id) {
             return <div />
-        }
-        if (this.state.navigateToEdit) {
-            return <Redirect to={`/users/edit/${this.state.user.id}`}></Redirect>
         }
         return (
             <>
@@ -30,7 +26,7 @@ class OrderDetails extends React.Component {
                             <Row>
                                 <Col md={{span: 4, offset: 4}} xs={{span: 4, offset: 4}}>
                                     <Card.Title>
-                                        {this.state.user.firstName + ' ' + this.state.user.lastName}
+                                        Order Details
                                     </Card.Title>
                                 </Col>
                                 <Col md={4} xs = {4}>
@@ -39,26 +35,27 @@ class OrderDetails extends React.Component {
                                     </Button>
                                 </Col>
                             </Row>
-                            {this.getLastDate()}
+                            {this.getOrderDate()}
                             <Image src={user} className="user-image"/>
                             <br/>
+                            <label>Product Name&nbsp;</label>
+                            {this.state.order.productName}
+                            <br/>
+                            <label>Quantity&nbsp;</label>
+                            {this.state.order.quantity}
+                            <br/>
+                            <label>Price&nbsp;</label>
+                            {this.state.order.productPrice}
+                            <br/>
                             <label>Address&nbsp;</label>
-                            {this.state.user.address}
+                            {this.state.order.address}
                             <br/>
                             <label>Postcode&nbsp;</label>
-                            {this.state.user.postcode}
+                            {this.state.order.postcode}
                             <br/>
-                            <label>Email&nbsp;</label>
-                            {this.state.user.email}
+                            <label>Source&nbsp;</label>
+                            {this.state.order.source}
                             <br/>
-                            <label>Phone Number&nbsp;</label>
-                            {this.state.user.phoneNumber}
-                            <br/>
-                            {this.state.user.canPurchase ? <Badge variant="success">Can Purchase</Badge> : <Badge variant="danger">Purchase Disabled</Badge>}
-                            {this.state.user.isDeleteRequested? 
-                                <Badge variant="danger ml">Delete Requested</Badge> 
-                            : 
-                                <React.Fragment><br/> <Button onClick={this.requestDelete} size = "sm" className="mt-sm" variant="danger">Request Delete</Button></React.Fragment>}
                         </Card.Body>
                     </Card>
                 </Container>
@@ -67,38 +64,18 @@ class OrderDetails extends React.Component {
     }
 
     componentDidMount() {
-        var id = this.getQueryParams(this.props.location.pathname);
-        axios.get(`https://localhost:44375/api/accounts/getcustomer?accountId=${id}`).then(resp =>  {
+        var id = this.props.match.params.id;
+        axios.get(`https://localhost:44396/api/orders/getorder?id=${id}`).then(resp =>  {
             this.setState({
-                user: resp.data
+                order: resp.data
             });
             this.test();
         })
     }
 
-    navigateToEdit = () => {
-        this.setState({
-            navigateToEdit: true
-        })
-    }
-
-    requestDelete = ($event) => {
-        axios.put(`https://localhost:44375/api/accounts/requestAccountDelete?accountId=${this.state.user.id}`, {
-            accountId: this.state.user.id
-        }).then(resp => {
-            var updatedUser = this.state.user
-            updatedUser.isDeleteRequested = true
-            this.setState({
-                user: updatedUser
-            })
-        }).catch(err => {
-            console.log(err);
-        })
-    }
-
-    getLastDate = () => {
-        var date = new Date(this.state.user.loggedOnAt)
-        return <p className="opaque">Last logged on at {date.toDateString()}</p>
+    getOrderDate = () => {
+        var date = new Date(this.state.order.purchasedOn)
+        return <p className="opaque">Purchased at {date.toDateString()}</p>
     }
 
     test() {
