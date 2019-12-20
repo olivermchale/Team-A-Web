@@ -1,7 +1,7 @@
 import React from 'react';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Link } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 class ProductsTable extends React.Component {
@@ -97,6 +97,15 @@ class ProductsTable extends React.Component {
         ]
     }
     render() {
+        if(!this.state.products[0])
+        {
+            return (
+            <Container className="mt center">
+                <Spinner animation="border" role="status"></Spinner>
+                <h5> Loading Product, please wait... </h5>
+            </Container>
+            )
+        }
         return (
             <>
                 <Container style={{ marginTop: 50 }}>
@@ -124,20 +133,6 @@ class ProductsTable extends React.Component {
             }
         );
     }
-
-    componentDidMount() {
-        console.log(this.props);
-    }
-
-    clicked = () => {
-        console.log(this.props);
-        console.log(this.state);
-    }
-
-
-
 }
-
-
 
 export default connect()(ProductsTable);

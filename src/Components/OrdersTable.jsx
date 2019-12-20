@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Link } from 'react-router-dom';
-import { Container, Card } from 'react-bootstrap';
+import { Container, Card, Spinner } from 'react-bootstrap';
 
 function idFormatter (cell, row)  {
     return (
@@ -36,20 +36,27 @@ class OrdersTable extends React.Component {
         ]
     }
     render() {
+        if(!this.state.orders[0])
+        {
+            return (
+            <Container className="mt center">
+                <Spinner animation="border" role="status"></Spinner>
+                <h5> Loading Product, please wait... </h5>
+            </Container>
+            )
+        }
         return (
-            <>
-                <Container style={{ marginTop: 50 }}>
-                    <Card>
-                        <BootstrapTable 
-                        striped
-                        bootstrap4
-                        hover
-                        keyField='id' 
-                        data={ this.state.orders } 
-                        columns={ this.state.columns } />
-                    </Card>
-                </Container>
-            </>
+            <Container style={{ marginTop: 50 }}>
+                <Card>
+                    <BootstrapTable 
+                    striped
+                    bootstrap4
+                    hover
+                    keyField='id' 
+                    data={ this.state.orders } 
+                    columns={ this.state.columns } />
+                </Card>
+            </Container>
         )
     }
 

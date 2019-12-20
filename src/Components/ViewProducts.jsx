@@ -39,7 +39,6 @@ class ViewProducts extends React.Component {
         if(this.state.products[0]) {
             return(
                 <>
-                    <h1>Products have loaded!</h1>
                     <ProductsTable products={this.state.products}></ProductsTable>
                 </>
             )

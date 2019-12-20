@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
 import { Container, Card, Image, Badge, Button, Form, Col, Row } from 'react-bootstrap';
 import axios from 'axios';
-import user from './user.png'
+import productplaceholder from './productplaceholder.jpg'
 import { useParams, Redirect } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
 import { Link } from 'react-router-dom';
@@ -36,7 +36,7 @@ class OrderDetails extends React.Component {
                                 </Col>
                             </Row>
                             {this.getOrderDate()}
-                            <Image src={user} className="user-image"/>
+                            <Image src={productplaceholder} rounded className="user-image"/>
                             <br/>
                             <label>Product Name&nbsp;</label>
                             {this.state.order.productName}
@@ -44,17 +44,30 @@ class OrderDetails extends React.Component {
                             <label>Quantity&nbsp;</label>
                             {this.state.order.quantity}
                             <br/>
-                            <label>Price&nbsp;</label>
-                            {this.state.order.productPrice}
+                            <label>Total Price&nbsp;</label>
+                            {this.state.order.orderPrice}
                             <br/>
+                            <label>Source&nbsp;</label>
+                            {this.state.order.source}
+                            <br/>
+                            <label>Order Status&nbsp;</label>
+                            {this.state.order.purchaseStatus}
+                            <br/>
+                            <hr/>
+                            <h3>Delivery Information</h3>
                             <label>Address&nbsp;</label>
                             {this.state.order.address}
                             <br/>
                             <label>Postcode&nbsp;</label>
                             {this.state.order.postcode}
                             <br/>
-                            <label>Source&nbsp;</label>
-                            {this.state.order.source}
+                            <hr/>
+                            <h3>Payment Information</h3>
+                            <label>Name on card&nbsp;</label>
+                            {this.state.order.cardholderName}
+                            <br/>
+                            <label>Last four digits&nbsp;</label>
+                            {this.state.order.last4Digits}
                             <br/>
                         </Card.Body>
                     </Card>
@@ -75,7 +88,7 @@ class OrderDetails extends React.Component {
 
     getOrderDate = () => {
         var date = new Date(this.state.order.purchasedOn)
-        return <p className="opaque">Purchased at {date.toDateString()}</p>
+        return <p className="opaque">Purchased on {date.toDateString()}</p>
     }
 
     test() {

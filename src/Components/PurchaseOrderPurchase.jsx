@@ -9,6 +9,7 @@ import ProductsTable from './ProductsTable';
 import PaymentForm from './PaymentForm';
 import LoadingOverlay from 'react-loading-overlay';
 import { connect } from 'react-redux';
+import productplaceholder from './productplaceholder.jpg'
 import SweetAlert from 'sweetalert2-react';
 import { useHistory, Redirect } from 'react-router-dom';
 import 'sweetalert/dist/sweetalert.css';
@@ -28,7 +29,8 @@ class PurchaseOrderPurchase extends React.Component {
         user: {},
         loading: false,
         purchased: false,
-        navigate: false
+        navigate: false,
+        error: false
     }
     render() {
         if (this.state.navigate) {
@@ -52,7 +54,15 @@ class PurchaseOrderPurchase extends React.Component {
                 title="Purchase Successful!"
                 text="Continue Shopping"
                 onConfirm={() => {
-                    this.removeSwal()
+                    this.removeSwal(true)
+                }}
+                />
+                <SweetAlert
+                show={this.state.error}
+                title="Purchase Failed!"
+                text="Retry?"
+                onConfirm={() => {
+                    this.removeSwal(false)
                 }}
                 />
             <LoadingOverlay
@@ -63,7 +73,7 @@ class PurchaseOrderPurchase extends React.Component {
                     <Card>
                         <Row className="mt">
                             <Col xs={12} md={4}>
-                                <Image className="placeholder-img" src={"https://external-preview.redd.it/LddK4slWhSO6pNNkBs9_gYnnCnLIjAz3lIFOYR2Bzd4.jpg?auto=webp&s=9e8b51aa6fe8d153ad09f893e132ae5a37775729"} />
+                                <Image className="placeholder-img" src={productplaceholder} />
                             </Col>
                             <Col xs={12} md={4}>
                                 <h1>{this.props.name}</h1>
@@ -138,10 +148,17 @@ class PurchaseOrderPurchase extends React.Component {
         }
     }
 
-    removeSwal = () => {
-        this.setState({ 
-            navigate: true, purchased: false, loading: false 
-        })
+    removeSwal = (success) => {
+        if(success) {
+            this.setState({ 
+                navigate: true, purchased: false, loading: false 
+            })
+        } else {
+            this.setState({
+                error: false
+            })
+        }
+
     }
 
     handleInputChange = (e) => {
@@ -193,6 +210,7 @@ class PurchaseOrderPurchase extends React.Component {
             console.log(err);
             this.setState({
                 loading: false,
+                error: true
             })
         })
     }
