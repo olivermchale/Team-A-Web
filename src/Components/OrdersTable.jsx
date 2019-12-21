@@ -60,8 +60,6 @@ class OrdersTable extends React.Component {
         )
     }
 
-
-
     componentDidMount() {
         axios.get('https://localhost:44396/api/orders/getorders').then(resp =>  {
             this.setState({

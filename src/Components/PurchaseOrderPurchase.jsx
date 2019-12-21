@@ -30,7 +30,8 @@ class PurchaseOrderPurchase extends React.Component {
         loading: false,
         purchased: false,
         navigate: false,
-        error: false
+        error: false,
+        errorMessage: null
     }
     render() {
         if (this.state.navigate) {
@@ -59,7 +60,7 @@ class PurchaseOrderPurchase extends React.Component {
                 />
                 <SweetAlert
                 show={this.state.error}
-                title="Purchase Failed!"
+                title={this.state.errorMessage == null ? "Purchase Failed!" : "Purchase Failed: " + this.state.errorMessage}
                 text="Retry?"
                 onConfirm={() => {
                     this.removeSwal(false)
@@ -101,7 +102,7 @@ class PurchaseOrderPurchase extends React.Component {
                                     name="address"
                                     type="text"
                                     onChange={this.handleInputChange}
-                                    defaultValue={this.state.user.address}
+                                    defaultValue={this.state.address}
                                     placeholder="Address" />
                             </Col>
                             <Col className="mt-15" md={{ span: 4, offset: 4 }} xs={12}>
@@ -109,7 +110,7 @@ class PurchaseOrderPurchase extends React.Component {
                                     name="postcode"
                                     type="text"
                                     onChange={this.handleInputChange}
-                                    defaultValue={this.state.user.postcode}
+                                    defaultValue={this.state.postcode}
                                     placeholder="Postcode" />
                             </Col>
                             <Col className="mt-15 mb" md={{ span: 4, offset: 4 }} xs={12}>
@@ -142,7 +143,9 @@ class PurchaseOrderPurchase extends React.Component {
         if (userId != null) {
             axios.get(`https://localhost:44375/api/accounts/getcustomer?accountId=${userId}`).then(resp => {
                 this.setState({
-                    user: resp.data
+                    user: resp.data,
+                    address: resp.data.address,
+                    postcode: resp.data.postcode
                 })
             });
         }
@@ -189,8 +192,8 @@ class PurchaseOrderPurchase extends React.Component {
             quantity: this.state.quantity,
             externalId: this.state.externalId,
             productPrice: this.state.productPrice,
-            address: this.state.user.address,
-            postcode: this.state.user.postcode,
+            address: this.state.address,
+            postcode: this.state.postcode,
             source: this.state.productSource,
             paymentInformation: {
                 cardName: this.state.cardName,
@@ -207,10 +210,18 @@ class PurchaseOrderPurchase extends React.Component {
                 purchased: true
             });
         }).catch(err => {
+            var errorMessage = null;
+            if(err.response.data != null) {
+                if(typeof err.response.data == "string") {
+                    errorMessage = err.response.data;
+                } else {
+                }
+            }
             console.log(err);
             this.setState({
                 loading: false,
-                error: true
+                error: true,
+                errorMessage: err.response.data
             })
         })
     }
