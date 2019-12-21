@@ -33,6 +33,12 @@ class ProductsTable extends React.Component {
         )
     }
 
+    priceFormatter = (cell, row) => {
+        if(row.price) {
+            return '£' + row.price.toFixed(2);
+        }
+    }
+
     stockFormatter = (cell, row) => {
         if (row.inStock) {
             return (
@@ -83,6 +89,7 @@ class ProductsTable extends React.Component {
             {
                 dataField: 'price',
                 text: 'Price',
+                formatter: this.priceFormatter
             },
             {
                 dataField: 'inStock',

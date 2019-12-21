@@ -12,6 +12,14 @@ function idFormatter (cell, row)  {
     )
 }
 
+function priceFormatter (cell, row) {
+    if(row.price) {
+        return '£' +row.price.toFixed(2);
+    }
+}
+
+
+
 class OrdersTable extends React.Component {
     state = {
         orders: [],
@@ -27,7 +35,8 @@ class OrdersTable extends React.Component {
             },
             {
                 dataField: 'price',
-                text: 'Price'
+                text: 'Price',
+                formatter: priceFormatter
             },
             {
                 dataField: 'quantity',
@@ -35,6 +44,9 @@ class OrdersTable extends React.Component {
             }
         ]
     }
+
+
+
     render() {
         if(!this.state.orders[0])
         {

@@ -210,18 +210,21 @@ class PurchaseOrderPurchase extends React.Component {
                 purchased: true
             });
         }).catch(err => {
-            var errorMessage = null;
+            var errorMessage = '';
             if(err.response.data != null) {
                 if(typeof err.response.data == "string") {
                     errorMessage = err.response.data;
                 } else {
+                    Object.keys(err.response.data.errors).forEach((key) => {
+                        errorMessage = errorMessage + err.response.data.errors[key][0] + ', ';
+                    });
                 }
             }
             console.log(err);
             this.setState({
                 loading: false,
                 error: true,
-                errorMessage: err.response.data
+                errorMessage: errorMessage
             })
         })
     }

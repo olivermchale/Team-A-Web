@@ -45,7 +45,7 @@ class OrderDetails extends React.Component {
                             {this.state.order.quantity}
                             <br/>
                             <label>Total Price&nbsp;</label>
-                            {this.state.order.orderPrice}
+                            £{this.state.order.orderPrice.toFixed(2)}
                             <br/>
                             <label>Source&nbsp;</label>
                             {this.state.order.source}
