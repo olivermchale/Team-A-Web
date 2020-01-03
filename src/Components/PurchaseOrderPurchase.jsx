@@ -37,6 +37,13 @@ class PurchaseOrderPurchase extends React.Component {
         if (this.state.navigate) {
             return <Redirect to={`/products`}></Redirect>
         }
+        if (this.state.error) {
+            return (
+                <Container className="mt center">
+                    <h5> Failed to load user information</h5>
+                </Container>
+                )
+        }
         if (!this.state.user.id) {
             return (
                 <Container className="mt center">
@@ -147,7 +154,11 @@ class PurchaseOrderPurchase extends React.Component {
                     address: resp.data.address,
                     postcode: resp.data.postcode
                 })
-            });
+            }).catch(err => {
+                this.setState({
+                    error: true
+                })
+            })
         }
     }
 

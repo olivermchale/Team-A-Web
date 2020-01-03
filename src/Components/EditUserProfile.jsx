@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
-import { Container, Card, Image, Badge, Button, Form, Col, Row, ButtonToolbar } from 'react-bootstrap';
+import { Container, Card, Image, Badge, Button, Form, Col, Row, ButtonToolbar, Spinner } from 'react-bootstrap';
 import axios from 'axios';
 import user from './user.png'
 import { useParams } from 'react-router-dom';
@@ -17,8 +17,20 @@ class EditUserProfile extends React.Component {
     }
     history;
     render() {
+        if (this.state.error) {
+            return (
+                <Container className="mt center">
+                    <h5> Failed to load user </h5>
+                </Container>
+            )
+        }
         if (!this.state.user.id) {
-            return <div />
+            return (
+                <Container className="mt center">
+                    <Spinner animation="border" role="status"></Spinner>
+                    <h5> Loading User, please wait... </h5>
+                </Container>
+            )
         }
         if (this.state.userUpdated) {
             return <Redirect to={`/users/${this.state.user.id}`}></Redirect>

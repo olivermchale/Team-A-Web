@@ -36,12 +36,19 @@ class AccountTable extends React.Component {
         ]
     }
     render() {
+        if(this.state.error) {
+            return (
+                <Container className="mt center">
+                <h5>Failed to load accounts</h5>
+            </Container>
+            )
+        }
         if(!this.state.users[0])
         {
             return (
                 <Container className="mt center">
                     <Spinner animation="border" role="status"></Spinner>
-                    <h5> Loading Product, please wait... </h5>
+                    <h5> Loading Accounts, please wait... </h5>
                 </Container>
             )
         }
@@ -69,6 +76,10 @@ class AccountTable extends React.Component {
             this.setState({
                 users: resp.data.customerAccounts
             });
+        }).catch(err => {
+            this.setState({
+                error: true
+            })
         })
     }
 }

@@ -36,6 +36,9 @@ class ViewProducts extends React.Component {
     }
 
     productPrices() {
+        if(this.state.error) {
+            return <h5> Failed to load products </h5>
+        }
         if(this.state.products[0]) {
             return(
                 <>
@@ -57,8 +60,11 @@ class ViewProducts extends React.Component {
         axios.get(`${process.env.REACT_APP_PURCHASEORDERS_URL}/api/products/getProductsByEan?ean=${ean}`).then(resp =>  {
             this.setState({
                 products: resp.data
+            });            
+        }).catch(err => {
+            this.setState({
+                error: true
             });
-            
         })
     }
     

@@ -48,12 +48,19 @@ class OrdersTable extends React.Component {
 
 
     render() {
+        if(this.state.error) {
+            return (
+                <Container className="mt center">
+                    <h5> Failed to load orders </h5>
+                </Container>
+                )
+        }
         if(!this.state.orders[0])
         {
             return (
             <Container className="mt center">
                 <Spinner animation="border" role="status"></Spinner>
-                <h5> Loading Product, please wait... </h5>
+                <h5> Loading Orders, please wait... </h5>
             </Container>
             )
         }
@@ -77,6 +84,10 @@ class OrdersTable extends React.Component {
             this.setState({
                 orders: resp.data.orders
             });
+        }).catch(err => {
+            this.setState({ 
+                error: true
+            })
         })
     }
 }
