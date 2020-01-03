@@ -88,6 +88,7 @@ class App extends React.Component {
 
     getToken().then(resp => {
       document.cookie = `AccessToken=${resp.access_token}`;
+      axios.defaults.headers.common['Authorization'] = "Bearer " + (new Cookies()).get("AccessToken");
     })
 
   }
