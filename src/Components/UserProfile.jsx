@@ -68,7 +68,7 @@ class UserProfile extends React.Component {
 
     componentDidMount() {
         var id = this.getQueryParams(this.props.location.pathname);
-        axios.get(`https://localhost:44375/api/accounts/getcustomer?accountId=${id}`).then(resp =>  {
+        axios.get(`${process.env.REACT_APP_ACCOUNT_URL}/api/accounts/getcustomer?accountId=${id}`).then(resp =>  {
             this.setState({
                 user: resp.data
             });
@@ -83,7 +83,7 @@ class UserProfile extends React.Component {
     }
 
     requestDelete = ($event) => {
-        axios.put(`https://localhost:44375/api/accounts/requestAccountDelete?accountId=${this.state.user.id}`, {
+        axios.put(`${process.env.REACT_APP_ACCOUNT_URL}/api/accounts/requestAccountDelete?accountId=${this.state.user.id}`, {
             accountId: this.state.user.id
         }).then(resp => {
             var updatedUser = this.state.user

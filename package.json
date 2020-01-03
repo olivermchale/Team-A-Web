@@ -6,6 +6,7 @@
     "axios": "^0.19.0",
     "axios-oauth-client": "^1.2.1",
     "bootstrap": "^4.3.1",
+    "env-cmd": "^9.0.2",
     "react": "^16.12.0",
     "react-bootstrap": "^1.0.0-beta.16",
     "react-bootstrap-table-next": "^3.3.1",
@@ -22,9 +23,9 @@
     "universal-cookie": "^4.0.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "env-cmd -f ./.env.development react-scripts start",
+    "build": "env-cmd .env.production react-scripts build",
+    "test": "env-cmd .env.development react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

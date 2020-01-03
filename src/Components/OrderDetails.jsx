@@ -78,7 +78,7 @@ class OrderDetails extends React.Component {
 
     componentDidMount() {
         var id = this.props.match.params.id;
-        axios.get(`https://localhost:44396/api/orders/getorder?id=${id}`).then(resp =>  {
+        axios.get(`${process.env.REACT_APP_PURCHASEORDERS_URL}/api/orders/getorder?id=${id}`).then(resp =>  {
             this.setState({
                 order: resp.data
             });

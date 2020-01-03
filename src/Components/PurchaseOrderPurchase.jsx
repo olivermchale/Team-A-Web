@@ -141,7 +141,7 @@ class PurchaseOrderPurchase extends React.Component {
     componentWillMount() {
         var userId = localStorage.getItem('currentUserId');
         if (userId != null) {
-            axios.get(`https://localhost:44375/api/accounts/getcustomer?accountId=${userId}`).then(resp => {
+            axios.get(`${process.env.REACT_APP_ACCOUNT_URL}/api/accounts/getcustomer?accountId=${userId}`).then(resp => {
                 this.setState({
                     user: resp.data,
                     address: resp.data.address,
@@ -184,7 +184,7 @@ class PurchaseOrderPurchase extends React.Component {
 
     createOrder = () => {
         this.setState({ loading: true })
-        axios.post('https://localhost:44396/api/orders/createOrder', {
+        axios.post(`${process.env.REACT_APP_PURCHASEORDERS_URL}/api/orders/createOrder`, {
             purchasedBy: this.state.user.id,
             productId: this.state.productId,
             purchasedOn: new Date(),

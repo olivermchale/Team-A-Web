@@ -98,7 +98,7 @@ class EditUserProfile extends React.Component {
 
     componentDidMount() {
         var id = this.getQueryParams(this.props.location.pathname);
-        axios.get(`https://localhost:44375/api/accounts/getcustomer?accountId=${id}`).then(resp =>  {
+        axios.get(`${process.env.REACT_APP_ACCOUNT_URL}/api/accounts/getcustomer?accountId=${id}`).then(resp =>  {
             this.setState({
                 user: resp.data
             });
@@ -107,7 +107,7 @@ class EditUserProfile extends React.Component {
 
     updateUser = () => {
         console.log(this.state.user);
-        axios.put('https://localhost:44375/api/accounts/updateUser', {
+        axios.put(`${process.env.REACT_APP_ACCOUNT_URL}/api/accounts/updateUser`, {
             id: this.state.user.id,
             firstName: this.state.user.firstName,
             lastName: this.state.user.lastName,

@@ -46,14 +46,15 @@ class ViewProducts extends React.Component {
         return (
         <>
             <Spinner animation="border" role="status"></Spinner>
-            <h5> Loading Product, please wait... </h5>
+            <h5> Loading Product, please wait...</h5>
         </>
         );
     }
 
     componentDidMount() {
+        console.log(process.env);
         var ean = this.props.match.params.ean;
-        axios.get(`https://localhost:44396/api/products/getProductsByEan?ean=${ean}`).then(resp =>  {
+        axios.get(`${process.env.REACT_APP_PURCHASEORDERS_URL}/api/products/getProductsByEan?ean=${ean}`).then(resp =>  {
             this.setState({
                 products: resp.data
             });
