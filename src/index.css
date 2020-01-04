@@ -75,6 +75,12 @@ code {
   width: 100px;
 }
 
+.placeholder-img-lg {
+  margin-top: 115px;
+  height: 200px;
+  width: 200px;
+}
+
 .spin-center {
   align-self: center;
 }

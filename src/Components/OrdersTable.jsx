@@ -85,6 +85,7 @@ class OrdersTable extends React.Component {
                 orders: resp.data.orders
             });
         }).catch(err => {
+            console.log(err);
             this.setState({ 
                 error: true
             })

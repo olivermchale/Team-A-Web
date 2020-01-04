@@ -77,6 +77,7 @@ class AccountTable extends React.Component {
                 users: resp.data.customerAccounts
             });
         }).catch(err => {
+            console.log(err);
             this.setState({
                 error: true
             })

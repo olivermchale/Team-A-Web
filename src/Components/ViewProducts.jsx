@@ -1,12 +1,9 @@
 import React from 'react';
-import Navbar from 'react-bootstrap/Navbar';
 import { Container, Card, Form, Image, Row, Col, Spinner} from 'react-bootstrap';
-import { ateam } from './ateam.png';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { LinkContainer } from "react-router-bootstrap";
 import ProductsTable from './ProductsTable';
 import { connect } from 'react-redux';
+import productplaceholder from './productplaceholder.jpg'
 
 
 class ViewProducts extends React.Component {
@@ -20,7 +17,7 @@ class ViewProducts extends React.Component {
                     <Card>
                         <Row>
                             <Col xs={12} md={4}>
-                                <Image src={"https://external-preview.redd.it/LddK4slWhSO6pNNkBs9_gYnnCnLIjAz3lIFOYR2Bzd4.jpg?auto=webp&s=9e8b51aa6fe8d153ad09f893e132ae5a37775729"}/>
+                                <Image className="placeholder-img-lg" src={productplaceholder}/>
                             </Col>
                             <Col xs={12} md={8}>
                                 <h1>Product Details</h1>
@@ -62,9 +59,11 @@ class ViewProducts extends React.Component {
                 products: resp.data
             });            
         }).catch(err => {
+            console.log(err);
             this.setState({
                 error: true
             });
+            
         })
     }
     

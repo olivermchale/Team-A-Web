@@ -1,17 +1,12 @@
 import React from 'react';
-import Navbar from 'react-bootstrap/Navbar';
 import { Container, Card, Form, Image, Row, Col, Spinner } from 'react-bootstrap';
-import { ateam } from './ateam.png';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { LinkContainer } from "react-router-bootstrap";
-import ProductsTable from './ProductsTable';
 import PaymentForm from './PaymentForm';
 import LoadingOverlay from 'react-loading-overlay';
 import { connect } from 'react-redux';
 import productplaceholder from './productplaceholder.jpg'
 import SweetAlert from 'sweetalert2-react';
-import { useHistory, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import 'sweetalert/dist/sweetalert.css';
 
 class PurchaseOrderPurchase extends React.Component {
@@ -155,6 +150,7 @@ class PurchaseOrderPurchase extends React.Component {
                     postcode: resp.data.postcode
                 })
             }).catch(err => {
+                console.log(err);
                 this.setState({
                     error: true
                 })
