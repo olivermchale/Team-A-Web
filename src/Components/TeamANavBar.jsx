@@ -1,8 +1,6 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav'
-import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
 
 class TeamANavBar extends React.Component {

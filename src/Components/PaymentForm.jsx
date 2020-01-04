@@ -1,7 +1,7 @@
 import React from 'react';
 import Cards from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css'
-import { Container, Card, Form, Image, Row, Col, Spinner, Button} from 'react-bootstrap';
+import { Form, Row, Col, Button} from 'react-bootstrap';
 
 export default class PaymentForm extends React.Component {
     state = {

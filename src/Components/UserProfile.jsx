@@ -1,12 +1,8 @@
 import React from 'react';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav'
-import { Container, Card, Image, Badge, Button, Form, Col, Row } from 'react-bootstrap';
+import { Container, Card, Image, Badge, Button, Col, Row } from 'react-bootstrap';
 import axios from 'axios';
 import user from './user.png'
-import { useParams, Redirect } from 'react-router-dom';
-import { LinkContainer } from "react-router-bootstrap";
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 class UserProfile extends React.Component {
     state = {

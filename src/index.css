@@ -33,6 +33,12 @@ code {
   align-content: center;
 }
 
+.error-text {
+  text-align: center;
+  align-content: center;
+  color: red !important;
+}
+
 .user-image {
   height: 100px;
   width: 100px;

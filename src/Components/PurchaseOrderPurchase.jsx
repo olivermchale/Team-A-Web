@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import productplaceholder from './productplaceholder.jpg'
 import SweetAlert from 'sweetalert2-react';
 import { Redirect } from 'react-router-dom';
-import 'sweetalert/dist/sweetalert.css';
+// import 'sweetalert/dist/sweetalert.css';
 
 class PurchaseOrderPurchase extends React.Component {
     state = {
@@ -133,7 +133,6 @@ class PurchaseOrderPurchase extends React.Component {
                             </Col>
                         </Row>
                     </Card>
-
                 </Container>
             </LoadingOverlay>
             </>
