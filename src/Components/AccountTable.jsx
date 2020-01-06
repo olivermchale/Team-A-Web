@@ -3,6 +3,7 @@ import axios from 'axios';
 import BootstrapTable from 'react-bootstrap-table-next';
 import { Link } from 'react-router-dom';
 import { Container, Card, Spinner } from 'react-bootstrap';
+import polly from 'polly-js';
 
 function idFormatter (cell, row)  {
     return (
@@ -72,7 +73,7 @@ class AccountTable extends React.Component {
 
 
     componentDidMount() {
-        axios.get(`${process.env.REACT_APP_ACCOUNT_URL}/api/accounts/getcustomers`).then(resp =>  {
+        this.getDataWithPolly().then(resp =>  {
             this.setState({
                 users: resp.data.customerAccounts
             });
@@ -82,6 +83,14 @@ class AccountTable extends React.Component {
                 error: true
             })
         })
+    }
+
+    getDataWithPolly = () => {
+        return polly()
+                .waitAndRetry(5)
+                .executeForPromise(async () => {
+                    return await axios.get(`${process.env.REACT_APP_ACCOUNT_URL}/api/accounts/getcustomers`);
+                });
     }
 }
 

@@ -21,25 +21,18 @@ function statusFormatter (cell, row) {
     switch (row.orderStatus) {
         case 0:
             return 'Pending';
-            break;
         case 1:
             return 'Dispatched';
-            break;
         case 2:
             return 'Delivered';
-            break;
         case 3:
             return 'Cancelled';
-            break;
         case 4:
             return 'Returned';
-            break;
         case 5:
             return 'Unknown';
-            break;
         default:
             return 'Unknown';
-            break;
     }
 }
 
