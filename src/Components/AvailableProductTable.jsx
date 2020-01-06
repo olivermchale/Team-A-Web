@@ -35,7 +35,7 @@ class AvailableProductTable extends React.Component {
         if(this.state.error) {
             return (
                 <Container className="mt center">
-                    <h5> Failed to load orders </h5>
+                    <h5> Failed to load products </h5>
                 </Container>
                 )
         }
