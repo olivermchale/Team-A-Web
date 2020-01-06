@@ -74,14 +74,6 @@ class EditUserProfile extends React.Component {
                                 <Form.Control onChange={this.handleFormChange} defaultValue={this.state.user.postcode}/>
                             </Col>
                         </Form.Group>
-                        <Form.Group as={Row} controlId="email">
-                            <Form.Label  className="text-right teamA-form-lbl" column xs={3} md={4}>
-                                Email
-                            </Form.Label>
-                            <Col xs={9} md={4}>
-                                <Form.Control onChange={this.handleFormChange} defaultValue={this.state.user.email}/>
-                            </Col>
-                        </Form.Group>
                         <Form.Group as={Row} controlId="phoneNum">
                             <Form.Label  className="text-right teamA-form-lbl" column xs={3} md={4}>
                                 Phone Number
