@@ -3,6 +3,8 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Card, Spinner } from 'react-bootstrap';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+
 
 function idFormatter (cell, row)  {
     return (
@@ -58,7 +60,8 @@ class AvailableProductTable extends React.Component {
                         hover
                         keyField='id' 
                         data={ this.state.products } 
-                        columns={ this.state.columns } />
+                        columns={ this.state.columns } 
+                        pagination={ paginationFactory()}/>
                     </Card>
                 </Container>
             </>

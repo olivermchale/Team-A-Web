@@ -4,6 +4,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import { Link } from 'react-router-dom';
 import { Container, Card, Spinner } from 'react-bootstrap';
 import polly from 'polly-js';
+import paginationFactory from 'react-bootstrap-table2-paginator';
 
 function idFormatter (cell, row)  {
     return (
@@ -63,7 +64,8 @@ class AccountTable extends React.Component {
                         hover
                         keyField='id' 
                         data={ this.state.users } 
-                        columns={ this.state.columns } />
+                        columns={ this.state.columns } 
+                        pagination={ paginationFactory()}/>
                     </Card>
                 </Container>
             </>
