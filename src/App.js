@@ -7,7 +7,7 @@ import AccountTable from './Components/AccountTable';
 import UserProfile from './Components/UserProfile';
 import EditUserProfile from './Components/EditUserProfile';
 import ViewProducts from './Components/ViewProducts';
-import MockProducts from './Components/MockProducts';
+import AvailableProductTable from './Components/AvailableProductTable';
 import PurchaseOrderPurchase from './Components/PurchaseOrderPurchase';
 import OrdersTable from './Components/OrdersTable';
 import OrderDetails from './Components/OrderDetails';
@@ -119,7 +119,7 @@ class App extends React.Component {
         <Route
           exact
           path='/products/'
-          component={MockProducts}/>
+          component={AvailableProductTable}/>
         <Route
           exact
           path='/purchaseorders/products/:ean'

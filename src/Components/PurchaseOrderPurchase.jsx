@@ -32,7 +32,7 @@ class PurchaseOrderPurchase extends React.Component {
         if (this.state.navigate) {
             return <Redirect to={`/products`}></Redirect>
         }
-        if (this.state.error) {
+        if (this.state.userError) {
             return (
                 <Container className="mt center">
                     <h5> Failed to load user information</h5>
