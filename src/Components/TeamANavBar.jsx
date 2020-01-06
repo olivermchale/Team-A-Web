@@ -4,6 +4,9 @@ import Nav from 'react-bootstrap/Nav'
 import { LinkContainer } from "react-router-bootstrap";
 
 class TeamANavBar extends React.Component {
+    state = {
+        url: "/users/?"
+    };
     render() {
         return (
             <>
@@ -24,10 +27,20 @@ class TeamANavBar extends React.Component {
                         <LinkContainer to="/purchaseorders">
                             <Nav.Link >Purchase Orders</Nav.Link>
                         </LinkContainer>
+                        <LinkContainer className="pull-right" to={this.state.url}>
+                            <Nav.Link >My Profile</Nav.Link>
+                        </LinkContainer>
                     </Nav>
                 </Navbar>
             </>
         )
+    }
+
+    componentDidMount() {
+        let currentUserId = localStorage.getItem("currentUserId")
+        this.setState({
+            url: `users/${currentUserId}`
+        })
     }
 
     
