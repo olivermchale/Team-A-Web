@@ -156,7 +156,8 @@ class App extends React.Component {
       document.cookie = `AccessToken=${resp.access_token}`;
       // axios.defaults.headers.common['Authorization'] = "Bearer " + (new Cookies()).get("AccessToken");
       let tokenInfo = jwt(resp.access_token);
-      // use this token info to get who the current user is? (tokenInfo.sub)?
+      // use this token info to get who the current user is
+      localStorage.setItem("currentUserId", tokenInfo.sub);
     })
   }
 
@@ -207,7 +208,8 @@ class App extends React.Component {
       document.cookie = `AccessToken=${resp.access_token}`;
       // axios.defaults.headers.common['Authorization'] = "Bearer " + (new Cookies()).get("AccessToken");
       let tokenInfo = jwt(resp.access_token);
-      // use this token info to get who the current user is? (tokenInfo.sub)?
+      // use this token info to get who the current user is
+      localStorage.setItem("currentUserId", tokenInfo.sub);
       window.location.reload();
     }, err => {
       this.setState({

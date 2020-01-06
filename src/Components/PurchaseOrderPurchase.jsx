@@ -39,7 +39,7 @@ class PurchaseOrderPurchase extends React.Component {
                 </Container>
                 )
         }
-        if (!this.state.user.id) {
+        if (this.state.loadinginfo) {
             return (
                 <Container className="mt center">
                     <Card>
@@ -120,7 +120,6 @@ class PurchaseOrderPurchase extends React.Component {
                                     name="name"
                                     type="text"
                                     onChange={this.handleInputChange}
-                                    defaultValue={(this.state.user.firstName + ' ' + this.state.user.lastName)}
                                     placeholder="Name" />
                             </Col>
                             <Col xs={12} md={12}>
@@ -137,24 +136,6 @@ class PurchaseOrderPurchase extends React.Component {
             </LoadingOverlay>
             </>
         );
-    }
-
-    componentWillMount() {
-        var userId = localStorage.getItem('currentUserId');
-        if (userId != null) {
-            axios.get(`${process.env.REACT_APP_ACCOUNT_URL}/api/accounts/getcustomer?accountId=${userId}`).then(resp => {
-                this.setState({
-                    user: resp.data,
-                    address: resp.data.address,
-                    postcode: resp.data.postcode
-                })
-            }).catch(err => {
-                console.log(err);
-                this.setState({
-                    error: true
-                })
-            })
-        }
     }
 
     removeSwal = (success) => {

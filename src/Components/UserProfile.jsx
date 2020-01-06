@@ -3,6 +3,7 @@ import { Container, Card, Image, Badge, Button, Col, Row } from 'react-bootstrap
 import axios from 'axios';
 import user from './user.png'
 import { Redirect } from 'react-router-dom';
+import CustomerOrdersTable from './CustomerOrdersTable';
 
 class UserProfile extends React.Component {
     state = {
@@ -55,8 +56,11 @@ class UserProfile extends React.Component {
                                 <Badge variant="danger ml">Delete Requested</Badge> 
                             : 
                                 <React.Fragment><br/> <Button onClick={this.requestDelete} size = "sm" className="mt-sm" variant="danger">Request Delete</Button></React.Fragment>}
+                            <hr/>
+                           <CustomerOrdersTable></CustomerOrdersTable>
                         </Card.Body>
                     </Card>
+
                 </Container>
             </>
         )
