@@ -25,9 +25,6 @@ class OrderDetails extends React.Component {
                                     </Card.Title>
                                 </Col>
                                 <Col md={4} xs = {4}>
-                                    <Button onClick={this.navigateToEdit} className="float-right teamA-btn" variant="warning">
-                                            Edit
-                                    </Button>
                                 </Col>
                             </Row>
                             {this.getOrderDate()}

@@ -9,7 +9,8 @@ class EditUserProfile extends React.Component {
         user: {
 
         },
-        userUpdated: false
+        userUpdated: false,
+        allowed: true,
     }
     history;
     render() {
@@ -30,6 +31,9 @@ class EditUserProfile extends React.Component {
         }
         if (this.state.userUpdated) {
             return <Redirect to={`/users/${this.state.user.id}`}></Redirect>
+        }
+        if (!this.state.allowed) {
+            return <Redirect to={`/home`}></Redirect>
         }
         return (
             <>
@@ -98,11 +102,19 @@ class EditUserProfile extends React.Component {
 
     componentDidMount() {
         var id = this.getQueryParams(this.props.location.pathname);
+        this.checkUser(id);
         axios.get(`${process.env.REACT_APP_ACCOUNT_URL}/api/accounts/getcustomer?accountId=${id}`).then(resp =>  {
             this.setState({
                 user: resp.data
             });
         })
+    }
+
+    checkUser = (id) => {
+        var user = localStorage.getItem("currentUserId");
+        if (user != id) {
+            this.state.allowed = false;
+        }
     }
 
     updateUser = () => {

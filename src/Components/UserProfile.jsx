@@ -31,9 +31,7 @@ class UserProfile extends React.Component {
                                     </Card.Title>
                                 </Col>
                                 <Col md={4} xs = {4}>
-                                    <Button onClick={this.navigateToEdit} className="float-right teamA-btn" variant="warning">
-                                            Edit
-                                    </Button>
+                                    {this.editButton()}
                                 </Col>
                             </Row>
                             {this.getLastDate()}
@@ -94,6 +92,19 @@ class UserProfile extends React.Component {
         }).catch(err => {
             console.log(err);
         })
+    }
+
+    editButton = () => {
+        var user = localStorage.getItem("currentUserId");
+        var id = this.getQueryParams(this.props.location.pathname);
+        if(user == id) {
+            return (
+                <Button onClick={this.navigateToEdit} className="float-right teamA-btn" variant="warning">
+                    Edit
+                </Button>
+            )
+        }
+
     }
 
     getLastDate = () => {
