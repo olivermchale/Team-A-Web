@@ -18,7 +18,7 @@ function dateFormatter (cell, row) {
 }
 
 function statusFormatter (cell, row) {
-    switch (row.purchasedOn) {
+    switch (row.orderStatus) {
         case 0:
             return 'Pending';
             break;
@@ -51,7 +51,7 @@ class CustomerOrdersTable extends React.Component {
         columns : [
             {
                 dataField: 'id',
-                text: 'Product Name',
+                text: 'Order Number',
                 formatter: idFormatter
             },
             {
@@ -64,10 +64,6 @@ class CustomerOrdersTable extends React.Component {
                 text: 'Purchase Date',
                 formatter: dateFormatter
             },
-            {
-                dataField: 'quantity',
-                text: 'Quantity'
-            }
         ]
     }
 
@@ -100,6 +96,7 @@ class CustomerOrdersTable extends React.Component {
         }
         return (
             <Container style={{ marginTop: 50 }}>
+                <h3 className="center mb">Orders</h3>
                 <BootstrapTable 
                 striped
                 bootstrap4
@@ -113,6 +110,7 @@ class CustomerOrdersTable extends React.Component {
 
     componentDidMount() {
         let userId = localStorage.getItem("currentUserId");
+        userId = "fe39c187-7d5c-493f-bcd5-3612726597ac";
         axios.get(`${process.env.REACT_APP_ACCOUNT_URL}/api/accounts/getordersforcustomer?customerId=${userId}`).then(resp =>  {
             this.setState({
                 orders: resp.data,
