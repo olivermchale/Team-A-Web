@@ -38,6 +38,7 @@ class App extends React.Component {
   }
 
 
+  // commit to trigger CI build 
   constructor(props) {
     super(props);
     this.token = (new Cookies()).get("AccessToken");
